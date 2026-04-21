@@ -8,297 +8,196 @@
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
 
         :root {
-            --bg-dark: #07131f; /* Темно-синий лес */
+            --bg-dark: #07131f; 
             --primary: #ff9800;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+            margin: 0; padding: 0; width: 100%; height: 100%;
             font-family: 'Nunito', sans-serif;
-            overflow: hidden; /* Запрещаем прокрутку */
+            overflow: hidden; 
             background-color: var(--bg-dark);
             color: white;
-            touch-action: none; /* Запрещаем жесты браузера на мобильных */
+            touch-action: none; 
         }
 
-        /* Экран настроек */
+        /* --- ЭКРАН НАСТРОЕК --- */
         #setup-screen {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            padding: 20px;
-            text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 100; padding: 20px; text-align: center;
         }
 
         .setup-box {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            max-width: 500px;
-            width: 100%;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 600px; width: 100%;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        p { font-size: 1.1rem; margin-bottom: 20px; color: #ddd; }
 
         input[type="text"] {
-            width: 90%;
-            padding: 15px;
-            font-size: 1.5rem;
-            border: 3px solid var(--primary);
-            border-radius: 15px;
-            outline: none;
-            text-align: center;
-            text-transform: uppercase;
-            font-family: 'Nunito', sans-serif;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
+            width: 90%; padding: 15px; font-size: 1.5rem; border: 3px solid var(--primary);
+            border-radius: 15px; outline: none; text-align: center; text-transform: uppercase;
+            font-family: 'Nunito', sans-serif; font-weight: bold; color: #333; margin-bottom: 20px;
         }
+
+        .mode-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
         button.btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 900;
-            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
-            transition: transform 0.2s, background 0.2s;
-            font-family: 'Nunito', sans-serif;
+            background-color: var(--primary); color: white; border: none; padding: 12px 20px;
+            font-size: 1.2rem; border-radius: 20px; cursor: pointer; font-weight: 900;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.2s, filter 0.2s;
+            font-family: 'Nunito', sans-serif; min-width: 150px;
+        }
+        button.btn:hover { filter: brightness(1.1); transform: scale(1.05); }
+        button.btn:active { transform: scale(0.95); }
+
+        .btn-star { background-color: #673ab7; }
+        .btn-frog1 { background-color: #4caf50; }
+        .btn-frog2 { background-color: #009688; }
+
+        .back-btn {
+            position: absolute; top: 20px; left: 20px; z-index: 50;
+            background: rgba(255,255,255,0.2); color: white; border: 2px solid white;
+            padding: 10px 20px; border-radius: 20px; font-size: 1rem; font-weight: bold;
+            cursor: pointer; backdrop-filter: blur(5px);
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.4); }
+
+        /* --- СООБЩЕНИЕ О ПОБЕДЕ --- */
+        .win-message {
+            display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 100; background: rgba(0,0,0,0.8); padding: 40px; border-radius: 30px;
+            text-align: center; border: 4px solid var(--primary); box-shadow: 0 0 50px var(--primary);
+        }
+        .win-message h2 { font-size: 3rem; color: #ffeb3b; margin: 0 0 20px 0; }
+
+        /* ================= 1. ФОНАРИК ================= */
+        #game-screen {
+            display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #0b141a;
+        }
+        #items-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; }
+        .game-item {
+            position: absolute; font-size: 5rem; font-weight: 900; color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5); cursor: pointer; user-select: none;
+            transition: all 0.5s; display: flex; align-items: center; justify-content: center;
+            transform: translate(-50%, -50%);
+        }
+        .game-item.found { font-size: 6rem; color: #ffeb3b; z-index: 20; transform: translate(-50%, -50%) scale(1.2) rotate(0deg) !important; }
+        #flashlight-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 15; pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, transparent 80px, rgba(5, 10, 15, 0.98) 180px);
         }
 
-        button.btn:hover {
-            background-color: #ffb74d;
-            transform: scale(1.05);
-        }
-
-        button.btn:active {
-            transform: scale(0.95);
-        }
-
-        /* --- НОВЫЕ СТИЛИ ДЛЯ ЗВЕЗДНОГО НЕБА --- */
+        /* ================= 2. ЗВЕЗДОПАД ================= */
         #stars-screen {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, #020111 10%, #20124d 100%);
+            display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, #020111 10%, #20124d 100%); overflow: hidden;
+        }
+        .bg-star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle infinite alternate; }
+        @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 0.8; transform: scale(1.2); } }
+        .moon {
+            position: absolute; top: 8%; right: 12%; width: 80px; height: 80px; border-radius: 50%;
+            box-shadow: -15px 15px 0 0 #ffeb3b; filter: drop-shadow(0 0 25px rgba(255, 235, 59, 0.5)); z-index: 5;
+        }
+        #stars-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; }
+        .star-item {
+            position: absolute; cursor: pointer; width: 120px; height: 120px; display: flex;
+            align-items: center; justify-content: center; transform: translate(-50%, -50%); transition: transform 0.2s;
+        }
+        .star-item:hover { transform: translate(-50%, -50%) scale(1.1) !important; }
+        .star-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
+        .star-letter {
+            position: absolute; font-size: 3.5rem; font-weight: 900; color: #b71c1c;
+            text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff; pointer-events: none;
+        }
+        .star-item.falling { animation: fallDown 1.5s forwards; pointer-events: none; }
+        @keyframes fallDown { 100% { transform: translate(calc(-50% + 150px), 100vh) scale(0.5) rotate(180deg); opacity: 0; } }
+
+        /* ================= 3. ЛЯГУШКА И МУХИ ================= */
+        #flies-screen {
+            display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, #e1f5fe 0%, #b3e5fc 30%, #c8e6c9 30%, #8bc34a 100%);
             overflow: hidden;
         }
-
-        /* Рисуем маленькие фоновые звездочки */
-        .bg-star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: twinkle 2s infinite alternate;
+        .frog-center {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 280px; height: 280px; display: flex; align-items: center; justify-content: center;
+            z-index: 20; 
+        }
+        .cute-frog-svg {
+            width: 100%; height: 100%; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
+            animation: frogBreathe 3s infinite ease-in-out alternate;
+        }
+        @keyframes frogBreathe {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02) translateY(-5px); }
+        }
+        /* НАДЕЖНЫЙ СЛОЙ ДЛЯ БУКВЫ ПОВЕРХ ЛЯГУШКИ */
+        .frog-belly-letter {
+            position: absolute; top: 62%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 4.5rem; font-weight: 900; color: #1b5e20; z-index: 25; pointer-events: none;
+        }
+        
+        /* МУХИ ТЕПЕРЬ ЛЕТАЮТ ПОВЕРХ ЛЯГУШКИ (z-index 30) */
+        #flies-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 30; }
+        
+        .fly-item {
+            position: absolute; width: 140px; height: 140px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: filter 0.2s; animation: flyFloat 3s infinite ease-in-out alternate;
+            transform-origin: center;
+        }
+        .fly-item:hover { filter: brightness(1.1) drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
+        .fly-svg { width: 100%; height: 100%; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2)); }
+        
+        @keyframes flyFloat {
+            0% { transform: translate(-50%, -50%) rotate(-5deg); }
+            100% { transform: translate(-50%, calc(-50% - 15px)) rotate(5deg); }
+        }
+        
+        /* ЯЗЫК ЛЯГУШКИ ПОВЕРХ МУХ (z-index 40) */
+        .frog-tongue {
+            position: absolute; background-color: #ff5252; height: 12px; border-radius: 6px;
+            transform-origin: left center; z-index: 40; display: none; box-shadow: 0 5px 5px rgba(0,0,0,0.2);
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.2; transform: scale(0.8); }
-            100% { opacity: 0.8; transform: scale(1.2); }
+        /* ================= 4. ПРЫГУЧАЯ ЛЯГУШКА ================= */
+        #jump-screen {
+            display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, #81d4fa 0%, #0277bd 100%); overflow: hidden;
         }
-
-        /* Добавляем светящийся месяц */
-        .moon {
-            position: absolute;
-            top: 8%;
-            right: 12%;
-            width: 80px;
-            height: 80px;
-            background: transparent;
-            border-radius: 50%;
-            box-shadow: -15px 15px 0 0 #ffeb3b;
-            filter: drop-shadow(0 0 25px rgba(255, 235, 59, 0.5));
-            z-index: 5;
+        #jump-task-ui {
+            position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(255,255,255,0.9); padding: 15px 30px; border-radius: 20px;
+            font-size: 1.8rem; font-weight: bold; color: #333; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 20;
         }
-
-        #stars-container {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 10;
+        .highlight-pos { color: #d32f2f; text-transform: uppercase; font-size: 2rem; }
+        .highlight-let { color: #1976d2; font-size: 2.5rem; }
+        
+        #lilypads-container {
+            position: absolute; top: 30%; left: 0; right: 0; height: 40%;
+            display: flex; justify-content: space-around; align-items: center; padding: 0 50px; z-index: 10;
         }
-
-        .star-item {
-            position: absolute;
-            cursor: pointer;
-            width: 120px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translate(-50%, -50%);
+        .lilypad {
+            position: relative; width: 140px; height: 100px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
             transition: transform 0.2s;
         }
-
-        .star-item:hover {
-            transform: translate(-50%, -50%) scale(1.1);
+        .lilypad:hover { transform: scale(1.1); }
+        .lilypad-svg { position: absolute; width: 100%; height: 100%; z-index: 1; filter: drop-shadow(0 10px 5px rgba(0,0,0,0.2)); }
+        .lilypad-emoji { position: relative; font-size: 4rem; z-index: 2; margin-bottom: -10px; text-shadow: 0 5px 10px rgba(0,0,0,0.3); }
+        .lilypad-word { position: relative; z-index: 2; font-weight: 900; background: white; padding: 2px 10px; border-radius: 10px; color: black; font-size: 1.2rem; margin-top: 5px; border: 2px solid #ccc; }
+        
+        #jumping-frog {
+            position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
+            width: 150px; height: 150px; z-index: 30; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
-
-        .star-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
-        }
-
-        .star-letter {
-            position: absolute;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #b71c1c; /* Темно-красный цвет буквы для контраста */
-            text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff; /* Белая обводка */
-            pointer-events: none; /* Чтобы клик шел на саму звезду */
-        }
-
-        .star-item.falling {
-            animation: fallDown 1.5s forwards cubic-bezier(0.55, 0.085, 0.68, 0.53);
-            pointer-events: none;
-        }
-
-        @keyframes fallDown {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            100% { transform: translate(calc(-50% + 150px), 100vh) scale(0.5) rotate(180deg); opacity: 0; }
-        }
-
-        .mode-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-star {
-            background-color: #673ab7;
-            box-shadow: 0 5px 15px rgba(103, 58, 183, 0.4);
-        }
-
-        .btn-star:hover {
-            background-color: #7e57c2;
-        }
-
-        /* Игровой экран */
-        #game-screen {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.1"><circle cx="50" cy="50" r="2" fill="white"/></svg>');
-            background-color: #0b141a; /* Очень темный фон леса */
-        }
-
-        /* Слой с буквами */
-        #items-container {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 10;
-        }
-
-        .game-item {
-            position: absolute;
-            font-size: 5rem;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5);
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100px;
-            height: 100px;
-            transform: translate(-50%, -50%); /* Центрирование по координатам */
-        }
-
-        /* Анимация при нахождении буквы */
-        .game-item.found {
-            font-size: 6rem;
-            text-shadow: 0 0 50px #ffeb3b, 0 0 20px #ff9800;
-            color: #ffeb3b;
-            z-index: 20;
-            animation: bounceIn 0.8s ease;
-        }
-
-        /* Слой фонарика (темнота) */
-        #flashlight-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 15;
-            pointer-events: none; /* ПРОПУСКАЕТ КЛИКИ СКВОЗЬ СЕБЯ К БУКВАМ */
-            /* Начальное положение по центру */
-            background: radial-gradient(circle at 50% 50%, transparent 80px, rgba(5, 10, 15, 0.98) 180px);
-            transition: background 0.1s;
-        }
-
-        /* Кнопка "Назад" во время игры */
-        .back-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 30;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-        }
-
-        .back-btn:hover {
-            background: rgba(255,255,255,0.4);
-        }
-
-        /* Поздравительное сообщение */
-        .win-message {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 40;
-            background: rgba(0,0,0,0.8);
-            padding: 40px;
-            border-radius: 30px;
-            text-align: center;
-            border: 4px solid var(--primary);
-            box-shadow: 0 0 50px var(--primary);
-        }
-
-        .win-message h2 {
-            font-size: 3rem;
-            color: #ffeb3b;
-            margin: 0 0 20px 0;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-            50% { transform: translate(-50%, -50%) scale(1.2); }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
+        #jumping-frog .frog-belly-letter { font-size: 2.5rem; top: 62%; }
 
     </style>
 </head>
@@ -307,402 +206,614 @@
     <!-- ЭКРАН НАСТРОЕК -->
     <div id="setup-screen">
         <div class="setup-box">
-            <h1>🔦 Волшебный Лес</h1>
-            <p>Впишите буквы, которые хотите спрятать (через пробел, запятую или просто подряд):</p>
-            <input type="text" id="letters-input" value="А О У М С" placeholder="Например: А О У М С" autocomplete="off">
+            <h1>Игры с буквами 🎒</h1>
+            <p>Впишите буквы (например: А О У М С):</p>
+            <input type="text" id="letters-input" value="А О У М С" autocomplete="off">
             <br>
             <div class="mode-buttons">
                 <button class="btn" onclick="startGame('flashlight')">🔦 Фонарик</button>
                 <button class="btn btn-star" onclick="startGame('stars')">⭐ Звездопад</button>
+                <button class="btn btn-frog1" onclick="startGame('flies')">🪰 Ловить мух</button>
+                <button class="btn btn-frog2" onclick="startGame('jump')">🪷 Кувшинки</button>
             </div>
         </div>
     </div>
 
-    <!-- ИГРОВОЙ ЭКРАН (ФОНАРИК) -->
+    <!-- 1. ФОНАРИК -->
     <div id="game-screen">
         <button class="back-btn" onclick="endGame()">🚪 Выйти</button>
         <div id="items-container"></div>
         <div id="flashlight-overlay"></div>
-        
-        <div id="win-message-flashlight" class="win-message">
-            <h2>Ура! Все найдено! 🎉</h2>
-            <button class="btn" onclick="endGame()">Играть еще</button>
-        </div>
+        <div id="win-message-flashlight" class="win-message"><h2>Все найдено! 🎉</h2><button class="btn" onclick="endGame()">Меню</button></div>
     </div>
 
-    <!-- ИГРОВОЙ ЭКРАН (ЗВЕЗДНОЕ НЕБО) -->
+    <!-- 2. ЗВЕЗДОПАД -->
     <div id="stars-screen">
         <button class="back-btn" onclick="endGame()">🚪 Выйти</button>
-        
-        <!-- Месяц и контейнер для множества мерцающих звезд -->
         <div class="moon"></div>
         <div id="bg-stars-container"></div>
-
         <div id="stars-container"></div>
+        <div id="win-message-stars" class="win-message"><h2>Все звезды собраны! 🌟</h2><button class="btn btn-star" onclick="endGame()">Меню</button></div>
+    </div>
+
+    <!-- 3. ЛОБИТЬ МУХ -->
+    <div id="flies-screen">
+        <button class="back-btn" onclick="endGame()">🚪 Выйти</button>
         
-        <div id="win-message-stars" class="win-message">
-            <h2>Все звезды собраны! 🌟</h2>
-            <button class="btn btn-star" onclick="endGame()">В меню</button>
+        <div class="frog-center" id="flies-frog">
+            <!-- Красивая векторная лягушка (без текста внутри SVG) -->
+            <svg viewBox="0 0 200 200" class="cute-frog-svg">
+                <!-- Кувшинка -->
+                <path d="M10 160 Q 100 120 190 160 Q 100 200 10 160" fill="#4caf50"/>
+                <path d="M100 160 L 70 140 L 100 180 Z" fill="#388e3c"/>
+                
+                <!-- Задние лапки -->
+                <circle cx="50" cy="130" r="25" fill="#7cb342"/>
+                <circle cx="150" cy="130" r="25" fill="#7cb342"/>
+                <!-- Передние лапки -->
+                <path d="M 60 160 Q 40 170 50 180" fill="none" stroke="#7cb342" stroke-width="10" stroke-linecap="round"/>
+                <path d="M 140 160 Q 160 170 150 180" fill="none" stroke="#7cb342" stroke-width="10" stroke-linecap="round"/>
+                
+                <!-- Тело -->
+                <ellipse cx="100" cy="120" rx="60" ry="50" fill="#8bc34a"/>
+                <!-- Светлое пузико -->
+                <ellipse cx="100" cy="125" rx="40" ry="35" fill="#dcedc8"/>
+                
+                <!-- Голова -->
+                <ellipse cx="100" cy="70" rx="55" ry="40" fill="#8bc34a"/>
+                
+                <!-- Глаза -->
+                <circle cx="65" cy="40" r="20" fill="#8bc34a"/>
+                <circle cx="135" cy="40" r="20" fill="#8bc34a"/>
+                <circle cx="65" cy="40" r="14" fill="white"/>
+                <circle cx="135" cy="40" r="14" fill="white"/>
+                <circle cx="65" cy="40" r="6" fill="#1b5e20"/>
+                <circle cx="135" cy="40" r="6" fill="#1b5e20"/>
+                <circle cx="62" cy="37" r="2" fill="white"/>
+                <circle cx="132" cy="37" r="2" fill="white"/>
+                
+                <!-- Рот и щечки -->
+                <ellipse cx="55" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
+                <ellipse cx="145" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
+                <path d="M 70 85 Q 100 105 130 85" fill="transparent" stroke="#33691e" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <div class="frog-belly-letter" id="frog-belly-target">А</div>
         </div>
+        <div class="frog-tongue" id="frog-tongue"></div>
+
+        <div id="flies-container"></div>
+        <div id="win-message-flies" class="win-message"><h2>Лягушка сыта! 🪰🐸</h2><button class="btn btn-frog1" onclick="endGame()">Меню</button></div>
+    </div>
+
+    <!-- 4. ПРЫГУЧАЯ ЛЯГУШКА -->
+    <div id="jump-screen">
+        <button class="back-btn" onclick="endGame()">🚪 Выйти</button>
+        
+        <div id="jump-task-ui">
+            Где звук <span class="highlight-let" id="jump-task-letter">А</span>?<br>
+            В <span class="highlight-pos" id="jump-task-pos">НАЧАЛЕ</span> слова
+        </div>
+
+        <div id="lilypads-container"></div>
+
+        <div id="jumping-frog">
+            <svg viewBox="0 0 200 200" class="cute-frog-svg">
+                <!-- Кувшинка не нужна во время прыжка, оставим только лягушку -->
+                <!-- Задние лапки -->
+                <circle cx="50" cy="130" r="25" fill="#7cb342"/>
+                <circle cx="150" cy="130" r="25" fill="#7cb342"/>
+                <!-- Передние лапки -->
+                <path d="M 60 160 Q 40 170 50 180" fill="none" stroke="#7cb342" stroke-width="10" stroke-linecap="round"/>
+                <path d="M 140 160 Q 160 170 150 180" fill="none" stroke="#7cb342" stroke-width="10" stroke-linecap="round"/>
+                <!-- Тело -->
+                <ellipse cx="100" cy="120" rx="60" ry="50" fill="#8bc34a"/>
+                <!-- Светлое пузико -->
+                <ellipse cx="100" cy="125" rx="40" ry="35" fill="#dcedc8"/>
+                <!-- Голова -->
+                <ellipse cx="100" cy="70" rx="55" ry="40" fill="#8bc34a"/>
+                <!-- Глаза -->
+                <circle cx="65" cy="40" r="20" fill="#8bc34a"/>
+                <circle cx="135" cy="40" r="20" fill="#8bc34a"/>
+                <circle cx="65" cy="40" r="14" fill="white"/>
+                <circle cx="135" cy="40" r="14" fill="white"/>
+                <circle cx="65" cy="40" r="6" fill="#1b5e20"/>
+                <circle cx="135" cy="40" r="6" fill="#1b5e20"/>
+                <circle cx="62" cy="37" r="2" fill="white"/>
+                <circle cx="132" cy="37" r="2" fill="white"/>
+                <!-- Рот и щечки -->
+                <ellipse cx="55" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
+                <ellipse cx="145" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
+                <path d="M 70 85 Q 100 105 130 85" fill="transparent" stroke="#33691e" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <div class="frog-belly-letter" id="jump-frog-letter">А</div>
+        </div>
+
+        <div id="win-message-jump" class="win-message"><h2>Лягушка прошла болото! 🪷</h2><button class="btn btn-frog2" onclick="endGame()">Меню</button></div>
     </div>
 
     <script>
-        // Словарь: Буква -> Картинка (Эмодзи)
+        // --- СЛОВАРИ И ДАННЫЕ ---
+        // Для фонарика
         const dictionary = {
-            'А': '🍉', // Арбуз
-            'Б': '🍌', // Банан
-            'В': '🚁', // Вертолет
-            'Г': '🍄', // Гриб
-            'Д': '🏠', // Дом
-            'Е': '🦝', // Енот
-            'Ё': '🦔', // Ёжик
-            'Ж': '🦒', // Жираф
-            'З': '☂️', // Зонт
-            'И': '🧸', // Игрушка
-            'Й': '🧘', // Йог
-            'К': '🐱', // Кот
-            'Л': '🦊', // Лиса
-            'М': '🚗', // Машина
-            'Н': '✂️', // Ножницы
-            'О': '🐒', // Обезьяна
-            'П': '🐧', // Пингвин
-            'Р': '🚀', // Ракета
-            'С': '🐘', // Слон
-            'Т': '🐯', // Тигр
-            'У': '🐌', // Улитка
-            'Ф': '🔦', // Фонарик
-            'Х': '🍞', // Хлеб
-            'Ц': '🐥', // Цыпленок
-            'Ч': '🐢', // Черепаха
-            'Ш': '🎈', // Шарик
-            'Щ': '🪥', // Щетка
-            'Э': '🚜', // Экскаватор
-            'Ю': '🏕️', // Юрта/Палатка
-            'Я': '🍎'  // Яблоко
+            'А': '🍉', 'Б': '🍌', 'В': '🚁', 'Г': '🍄', 'Д': '🏠', 'Е': '🦝', 'Ё': '🦔', 'Ж': '🦒', 'З': '☂️',
+            'И': '🧸', 'Й': '🧘', 'К': '🐱', 'Л': '🦊', 'М': '🚗', 'Н': '✂️', 'О': '🐒', 'П': '🐧', 'Р': '🚀',
+            'С': '🐘', 'Т': '🐯', 'У': '🐌', 'Ф': '🔦', 'Х': '🍞', 'Ц': '🐥', 'Ч': '🐢', 'Ш': '🎈', 'Щ': '🪥',
+            'Э': '🚜', 'Ю': '🏕️', 'Я': '🍎'
         };
 
-        // --- ГЕНЕРАТОР ПРИЯТНЫХ ЗВУКОВ (Web Audio API) ---
+        // Для кувшинок: Строгий словарь позиций звуков [word, emoji]
+        const jumpDict = {
+            'А': { start: ['Арбуз', '🍉'], middle: ['Шар', '🎈'], end: ['Луна', '🌙'] },
+            'Б': { start: ['Банан', '🍌'], middle: ['Собака', '🐶'], end: ['Зуб', '🦷'] },
+            'В': { start: ['Вертолет', '🚁'], middle: ['Сова', '🦉'], end: ['Лев', '🦁'] },
+            'Г': { start: ['Гриб', '🍄'], middle: ['Вагон', '🚆'], end: ['Снег', '❄️'] }, // Оглушение в конце, но для буквы пойдет
+            'Д': { start: ['Дом', '🏠'], middle: ['Вода', '💧'], end: ['Мед', '🍯'] },
+            'Е': { start: ['Енот', '🦝'], middle: ['Лес', '🌲'], end: ['Солнце', '☀️'] },
+            'Ж': { start: ['Жираф', '🦒'], middle: ['Ножницы', '✂️'], end: ['Нож', '🔪'] },
+            'З': { start: ['Зонт', '☂️'], middle: ['Коза', '🐐'], end: ['Глаз', '👁️'] },
+            'И': { start: ['Игрушка', '🧸'], middle: ['Лимон', '🍋'], end: ['Очки', '👓'] },
+            'К': { start: ['Кот', '🐱'], middle: ['Тыква', '🎃'], end: ['Лук', '🧅'] },
+            'Л': { start: ['Лиса', '🦊'], middle: ['Слон', '🐘'], end: ['Стул', '🪑'] },
+            'М': { start: ['Машина', '🚗'], middle: ['Лимон', '🍋'], end: ['Дом', '🏠'] },
+            'Н': { start: ['Ножницы', '✂️'], middle: ['Солнце', '☀️'], end: ['Слон', '🐘'] },
+            'О': { start: ['Обезьяна', '🐒'], middle: ['Дом', '🏠'], end: ['Яблоко', '🍎'] },
+            'П': { start: ['Пингвин', '🐧'], middle: ['Кепка', '🧢'], end: ['Суп', '🍲'] },
+            'Р': { start: ['Ракета', '🚀'], middle: ['Арбуз', '🍉'], end: ['Помидор', '🍅'] },
+            'С': { start: ['Слон', '🐘'], middle: ['Лиса', '🦊'], end: ['Ананас', '🍍'] },
+            'Т': { start: ['Тигр', '🐯'], middle: ['Утка', '🦆'], end: ['Кот', '🐱'] },
+            'У': { start: ['Улитка', '🐌'], middle: ['Жук', '🐛'], end: ['Кенгуру', '🦘'] },
+            'Ф': { start: ['Фонарик', '🔦'], middle: ['Софа', '🛋️'], end: ['Шарф', '🧣'] },
+            'Х': { start: ['Хлеб', '🍞'], middle: ['Муха', '🪰'], end: ['Петух', '🐓'] },
+            'Ц': { start: ['Цыпленок', '🐥'], middle: ['Овца', '🐑'], end: ['Огурец', '🥒'] },
+            'Ч': { start: ['Черепаха', '🐢'], middle: ['Очки', '👓'], end: ['Мяч', '⚽'] },
+            'Ш': { start: ['Шарик', '🎈'], middle: ['Мышка', '🐭'], end: ['Карандаш', '✏️'] },
+            'Э': { start: ['Экскаватор', '🚜'], middle: ['Мэр', '👨‍💼'], end: ['Алоэ', '🪴'] },
+            'Ю': { start: ['Юла', '🌀'], middle: ['Тюльпан', '🌷'], end: ['Меню', '📜'] },
+            'Я': { start: ['Яблоко', '🍎'], middle: ['Мяч', '⚽'], end: ['Змея', '🐍'] }
+        };
+
+        // --- АУДИО ---
         const audio = {
             ctx: null,
             init() {
-                if (!this.ctx) {
-                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                if (!this.ctx) { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
+                if (this.ctx.state === 'suspended') { this.ctx.resume(); }
+            },
+            play(type) {
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                const t = this.ctx.currentTime;
+                
+                if (type === 'click') {
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(600, t); osc.frequency.exponentialRampToValueAtTime(200, t + 0.1);
+                    gain.gain.setValueAtTime(0.2, t); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.1);
+                    osc.start(); osc.stop(t + 0.1);
+                } else if (type === 'magic') {
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(400, t); osc.frequency.exponentialRampToValueAtTime(1000, t + 0.3);
+                    gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(0.3, t + 0.05); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.3);
+                    osc.start(); osc.stop(t + 0.3);
+                } else if (type === 'slurp') { // Звук съедания мухи
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(600, t); osc.frequency.exponentialRampToValueAtTime(1500, t + 0.15);
+                    gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(0.4, t + 0.05); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.2);
+                    
+                    const osc2 = this.ctx.createOscillator();
+                    osc2.type = 'triangle'; osc2.frequency.setValueAtTime(800, t); osc2.frequency.exponentialRampToValueAtTime(2000, t + 0.15);
+                    osc2.connect(gain);
+                    osc2.start(); osc2.stop(t + 0.2);
+                    
+                    osc.start(); osc.stop(t + 0.2);
+                } else if (type === 'jump') { // Звук прыжка
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(150, t); osc.frequency.exponentialRampToValueAtTime(400, t + 0.3);
+                    gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(0.3, t + 0.05); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.3);
+                    osc.start(); osc.stop(t + 0.3);
+                } else if (type === 'error') { // Ошибка (не та кувшинка)
+                    osc.type = 'square'; osc.frequency.setValueAtTime(150, t); osc.frequency.exponentialRampToValueAtTime(100, t + 0.2);
+                    gain.gain.setValueAtTime(0.1, t); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.2);
+                    osc.start(); osc.stop(t + 0.2);
                 }
-                if (this.ctx.state === 'suspended') {
-                    this.ctx.resume();
-                }
-            },
-            playClick() {
-                if (!this.ctx) return;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.connect(gain); gain.connect(this.ctx.destination);
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(600, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(200, this.ctx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
-                osc.start(); osc.stop(this.ctx.currentTime + 0.1);
-            },
-            playMagic() {
-                if (!this.ctx) return;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.connect(gain); gain.connect(this.ctx.destination);
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(400, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1000, this.ctx.currentTime + 0.3);
-                gain.gain.setValueAtTime(0, this.ctx.currentTime);
-                gain.gain.linearRampToValueAtTime(0.3, this.ctx.currentTime + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
-                osc.start(); osc.stop(this.ctx.currentTime + 0.3);
-            },
-            playStar() {
-                if (!this.ctx) return;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.connect(gain); gain.connect(this.ctx.destination);
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(1500, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 1.2);
-                gain.gain.setValueAtTime(0, this.ctx.currentTime);
-                gain.gain.linearRampToValueAtTime(0.3, this.ctx.currentTime + 0.1);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 1.2);
-                osc.start(); osc.stop(this.ctx.currentTime + 1.2);
             },
             playWin() {
                 if (!this.ctx) return;
-                const notes = [523.25, 659.25, 783.99, 1046.50]; // Аккорд До-мажор (C5, E5, G5, C6)
+                const notes = [523.25, 659.25, 783.99, 1046.50];
                 notes.forEach((freq, i) => {
-                    const osc = this.ctx.createOscillator();
-                    const gain = this.ctx.createGain();
-                    osc.connect(gain); gain.connect(this.ctx.destination);
-                    osc.type = 'sine';
+                    const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                    osc.connect(gain); gain.connect(this.ctx.destination); osc.type = 'sine';
                     const t = this.ctx.currentTime + i * 0.15;
-                    osc.frequency.setValueAtTime(freq, t);
-                    gain.gain.setValueAtTime(0, t);
-                    gain.gain.linearRampToValueAtTime(0.3, t + 0.05);
-                    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.5);
+                    osc.frequency.setValueAtTime(freq, t); gain.gain.setValueAtTime(0, t);
+                    gain.gain.linearRampToValueAtTime(0.3, t + 0.05); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.5);
                     osc.start(t); osc.stop(t + 0.5);
                 });
             }
         };
 
-        let foundCount = 0;
-        let totalCount = 0;
-        let isGameRunning = false;
+        // --- ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ---
         let currentMode = '';
-        let placedStarsPositions = []; // Для проверки наложения звезд
-        let bgStarsGenerated = false;  // Флаг, чтобы не рисовать фон дважды
+        let isGameRunning = false;
+        let playLetters = [];
+        let globalFoundCount = 0;
 
+        // Элементы
         const setupScreen = document.getElementById('setup-screen');
-        const gameScreen = document.getElementById('game-screen');
-        const starsScreen = document.getElementById('stars-screen');
-        const itemsContainer = document.getElementById('items-container');
-        const starsContainer = document.getElementById('stars-container');
-        const overlay = document.getElementById('flashlight-overlay');
-        const winMessageFlashlight = document.getElementById('win-message-flashlight');
-        const winMessageStars = document.getElementById('win-message-stars');
-        const lettersInput = document.getElementById('letters-input');
+        const screens = {
+            'flashlight': document.getElementById('game-screen'),
+            'stars': document.getElementById('stars-screen'),
+            'flies': document.getElementById('flies-screen'),
+            'jump': document.getElementById('jump-screen')
+        };
+        const wins = {
+            'flashlight': document.getElementById('win-message-flashlight'),
+            'stars': document.getElementById('win-message-stars'),
+            'flies': document.getElementById('win-message-flies'),
+            'jump': document.getElementById('win-message-jump')
+        };
 
-        // Функция запуска игры
+        // --- ГЛАВНЫЙ КОНТРОЛЛЕР ---
         function startGame(mode) {
-            audio.init(); // Инициализируем аудио при первом клике пользователя
-            audio.playClick(); // Звук клика
-
-            // Получаем буквы из инпута, переводим в верхний регистр, убираем пробелы и запятые
-            const rawText = lettersInput.value.toUpperCase();
-            // Вытаскиваем только русские буквы
-            const letters = rawText.match(/[А-ЯЁ]/g);
-
-            if (!letters || letters.length === 0) {
-                alert("Пожалуйста, введите хотя бы одну русскую букву!");
-                return;
-            }
-
-            currentMode = mode;
-            setupScreen.style.display = 'none';
-            winMessageFlashlight.style.display = 'none';
-            winMessageStars.style.display = 'none';
+            audio.init(); audio.play('click');
             
-            foundCount = 0;
-            totalCount = letters.length;
-            isGameRunning = true;
+            const rawText = document.getElementById('letters-input').value.toUpperCase();
+            let letters = rawText.match(/[А-ЯЁ]/g);
 
-            if (mode === 'flashlight') {
-                gameScreen.style.display = 'block';
-                starsScreen.style.display = 'none';
-                itemsContainer.innerHTML = '';
-                
-                // Размещаем буквы на экране
-                letters.forEach(letter => {
-                    createLetterElement(letter);
-                });
+            if (!letters || letters.length === 0) { alert("Введите хотя бы одну букву!"); return; }
 
-                // Ставим фонарик в центр при старте
-                updateFlashlight(window.innerWidth / 2, window.innerHeight / 2);
-            } else if (mode === 'stars') {
-                gameScreen.style.display = 'none';
-                starsScreen.style.display = 'block';
-                starsContainer.innerHTML = '';
-                placedStarsPositions = []; // Очищаем координаты перед новой игрой
-
-                // Генерируем 70 фоновых звездочек один раз
-                if (!bgStarsGenerated) {
-                    generateBgStars();
-                    bgStarsGenerated = true;
+            // Фильтрация для игры в кувшинки (оставляем только те, что есть в словаре)
+            if (mode === 'jump') {
+                letters = letters.filter(l => jumpDict[l]);
+                if (letters.length === 0) {
+                    alert("Для этих букв пока нет картинок в болоте! Попробуйте А, О, У, М, С...");
+                    return;
                 }
-
-                // Размещаем звезды на небе
-                letters.forEach(letter => {
-                    createStarElement(letter, letters.length);
-                });
             }
+
+            playLetters = letters;
+            currentMode = mode;
+            isGameRunning = true;
+            globalFoundCount = 0;
+
+            setupScreen.style.display = 'none';
+            Object.values(screens).forEach(s => s.style.display = 'none');
+            Object.values(wins).forEach(w => w.style.display = 'none');
+            
+            screens[mode].style.display = 'block';
+
+            if (mode === 'flashlight') initFlashlight();
+            else if (mode === 'stars') initStars();
+            else if (mode === 'flies') initFlies();
+            else if (mode === 'jump') initJump();
         }
 
-        // Завершение игры и возврат в меню
         function endGame() {
-            audio.playClick(); // Звук клика
-            isGameRunning = false;
-            currentMode = '';
-            gameScreen.style.display = 'none';
-            starsScreen.style.display = 'none';
+            audio.play('click');
+            isGameRunning = false; currentMode = '';
+            Object.values(screens).forEach(s => s.style.display = 'none');
             setupScreen.style.display = 'flex';
         }
 
-        // Генерация красивого фона со множеством мерцающих звезд
-        function generateBgStars() {
-            const bgContainer = document.getElementById('bg-stars-container');
-            const colors = ['#ffffff', '#ffeb3b', '#b3e5fc', '#ffcdd2']; // Белые, желтые, голубые, розоватые
-            
-            for (let i = 0; i < 70; i++) {
-                const star = document.createElement('div');
-                star.className = 'bg-star';
-                
-                const size = Math.random() * 4 + 1; // Размер от 1 до 5 пикселей
-                const top = Math.random() * 100;
-                const left = Math.random() * 100;
-                const delay = Math.random() * 3; // Разное время начала мерцания
-                const duration = Math.random() * 2 + 1; // Разная скорость мерцания
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.top = `${top}%`;
-                star.style.left = `${left}%`;
-                star.style.backgroundColor = color;
-                star.style.animationDelay = `${delay}s`;
-                star.style.animationDuration = `${duration}s`;
-                
-                bgContainer.appendChild(star);
+        function checkWin(count, total) {
+            if (count >= total) {
+                setTimeout(() => {
+                    audio.playWin();
+                    wins[currentMode].style.display = 'block';
+                }, 1000);
             }
         }
 
-        // Создание элемента звезды для режима "Звездопад"
-        function createStarElement(letter, totalLetters) {
-            const el = document.createElement('div');
-            el.className = 'star-item';
+        // ================= МЕХАНИКА: МУХИ =================
+        let fliesCurrentIdx = 0;
+        let fliesToCatch = 0;
+        let fliesCaught = 0;
 
-            // Вычисляем безопасное расстояние (чем больше букв, тем плотнее они могут стоять)
-            const minDist = Math.max(12, 25 - totalLetters); // Минимум 12%, максимум 25% экрана
+        function initFlies() {
+            fliesCurrentIdx = 0;
+            renderFliesLevel();
+        }
 
-            let top, left, valid = false;
-            let attempts = 0;
+        function renderFliesLevel() {
+            if (fliesCurrentIdx >= playLetters.length) { checkWin(1, 1); return; }
+            
+            const targetLetter = playLetters[fliesCurrentIdx];
+            document.getElementById('frog-belly-target').innerText = targetLetter;
+            
+            const container = document.getElementById('flies-container');
+            container.innerHTML = '';
+            document.getElementById('frog-tongue').style.display = 'none';
 
-            // Алгоритм предотвращения наложения
-            while (!valid && attempts < 100) {
-                top = Math.floor(Math.random() * 70) + 15; // 15% - 85% по вертикали
-                left = Math.floor(Math.random() * 80) + 10; // 10% - 90% по горизонтали
-                valid = true;
+            fliesToCatch = 3 + Math.floor(Math.random() * 2); // 3 или 4 правильных мухи
+            fliesCaught = 0;
 
-                for (let pos of placedStarsPositions) {
-                    // Вычисляем дистанцию до уже стоящих звезд по Пифагору
-                    let dx = pos.left - left;
-                    let dy = pos.top - top;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dist < minDist) {
-                        valid = false;
-                        break;
+            const totalFlies = 10; // Всего 10 больших мух
+            const allAlphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ".split('');
+            let levelLetters = Array(fliesToCatch).fill(targetLetter);
+            
+            while(levelLetters.length < totalFlies) {
+                let randomLet = allAlphabet[Math.floor(Math.random()*allAlphabet.length)];
+                if(randomLet !== targetLetter) levelLetters.push(randomLet);
+            }
+            // Перемешиваем
+            levelLetters.sort(() => Math.random() - 0.5);
+
+            levelLetters.forEach((letter, index) => {
+                const fly = document.createElement('div');
+                fly.className = 'fly-item';
+                
+                // Векторная милая муха (буква отцентрирована внутри SVG)
+                fly.innerHTML = `
+                    <svg viewBox="0 0 100 100" class="fly-svg">
+                        <!-- Крылышки -->
+                        <path d="M50 45 Q 10 0 5 30 Q 25 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
+                        <path d="M50 45 Q 90 0 95 30 Q 75 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
+                        <!-- Тельце -->
+                        <ellipse cx="50" cy="55" rx="22" ry="30" fill="#37474f"/>
+                        <circle cx="50" cy="28" r="14" fill="#263238"/>
+                        <!-- Глазки -->
+                        <circle cx="43" cy="25" r="5" fill="white"/>
+                        <circle cx="57" cy="25" r="5" fill="white"/>
+                        <circle cx="43" cy="25" r="2" fill="black"/>
+                        <circle cx="57" cy="25" r="2" fill="black"/>
+                        <!-- Белое пузико для буквы -->
+                        <circle cx="50" cy="58" r="18" fill="#fff"/>
+                        <!-- Буква -->
+                        <text x="50" y="58" dy=".35em" text-anchor="middle" font-family="'Nunito', sans-serif" font-size="28" font-weight="900" fill="#b71c1c">${letter}</text>
+                    </svg>
+                `;
+                
+                // Красивое распределение по эллипсу вокруг центра
+                const angle = (index / totalFlies) * Math.PI * 2;
+                const radiusX = 35 + Math.random() * 10; // 35-45% от ширины экрана
+                const radiusY = 30 + Math.random() * 10; // 30-40% от высоты
+                
+                let posX = 50 + Math.cos(angle) * radiusX;
+                let posY = 50 + Math.sin(angle) * radiusY;
+                
+                // Удерживаем в пределах экрана
+                posX = Math.max(10, Math.min(90, posX));
+                posY = Math.max(10, Math.min(90, posY));
+
+                fly.style.left = posX + '%';
+                fly.style.top = posY + '%';
+                
+                // Рассинхрон анимации, чтобы летали вразнобой
+                fly.style.animationDelay = `-${Math.random()*4}s`;
+                fly.style.animationDuration = `${2.5 + Math.random()*2}s`;
+
+                fly.onclick = function(e) {
+                    if (fly.classList.contains('caught')) return;
+
+                    if (letter === targetLetter) {
+                        fly.classList.add('caught');
+                        catchFly(fly, e.clientX, e.clientY);
+                    } else {
+                        audio.play('error');
+                        fly.style.transform = 'scale(0.8) rotate(20deg)';
+                        setTimeout(() => fly.style.transform = '', 200);
                     }
+                };
+                container.appendChild(fly);
+            });
+        }
+
+        function catchFly(flyElement, flyX, flyY) {
+            audio.play('slurp');
+            const tongue = document.getElementById('frog-tongue');
+            const frogRect = document.getElementById('flies-frog').getBoundingClientRect();
+            
+            // Вычисляем старт языка (изо рта лягушки, пропорционально размеру SVG)
+            const startX = frogRect.left + frogRect.width / 2;
+            const startY = frogRect.top + frogRect.height * 0.42; // Точно на уровне рта (cy=80 из 200)
+            
+            // Конец языка - там где кликнули
+            const length = Math.sqrt(Math.pow(flyX - startX, 2) + Math.pow(flyY - startY, 2));
+            const angle = Math.atan2(flyY - startY, flyX - startX) * 180 / Math.PI;
+
+            tongue.style.display = 'block';
+            tongue.style.left = startX + 'px';
+            tongue.style.top = startY + 'px';
+            tongue.style.width = '0px';
+            tongue.style.transform = `rotate(${angle}deg)`;
+
+            // Анимация языка туда
+            setTimeout(() => { tongue.style.width = length + 'px'; }, 10);
+            
+            // Анимация съедания
+            setTimeout(() => {
+                flyElement.style.display = 'none'; // Муха пропадает
+                tongue.style.width = '0px'; // Язык обратно
+                
+                fliesCaught++;
+                if (fliesCaught >= fliesToCatch) {
+                    setTimeout(() => {
+                        fliesCurrentIdx++;
+                        renderFliesLevel();
+                    }, 600); // Небольшая пауза перед следующим уровнем
                 }
-                attempts++;
+            }, 200);
+        }
+
+        // ================= МЕХАНИКА: ПРЫГУЧАЯ ЛЯГУШКА =================
+        let jumpCurrentLetterIdx = 0;
+        const jumpStages = ['start', 'end', 'middle']; // Порядок: начало, конец, середина
+        const jumpStageNames = { 'start': 'НАЧАЛЕ', 'end': 'КОНЦЕ', 'middle': 'СЕРЕДИНЕ' };
+        let jumpCurrentStageIdx = 0;
+
+        function initJump() {
+            jumpCurrentLetterIdx = 0;
+            jumpCurrentStageIdx = 0;
+            document.getElementById('jumping-frog').style.bottom = '5%';
+            document.getElementById('jumping-frog').style.left = '50%';
+            renderJumpLevel();
+        }
+
+        function renderJumpLevel() {
+            if (jumpCurrentLetterIdx >= playLetters.length) { checkWin(1, 1); return; }
+
+            const targetLetter = playLetters[jumpCurrentLetterIdx];
+            const currentStage = jumpStages[jumpCurrentStageIdx];
+            
+            // Обновляем UI
+            document.getElementById('jump-frog-letter').innerText = targetLetter;
+            document.getElementById('jump-task-letter').innerText = targetLetter;
+            document.getElementById('jump-task-pos').innerText = jumpStageNames[currentStage];
+            
+            const container = document.getElementById('lilypads-container');
+            container.innerHTML = '';
+
+            // Получаем правильное слово
+            const correctData = jumpDict[targetLetter][currentStage]; 
+            
+            // Выбираем 2 неправильных (из других позиций или случайных букв)
+            let wrongOptions = [];
+            const allKeys = Object.keys(jumpDict);
+            while(wrongOptions.length < 2) {
+                let randomLet = allKeys[Math.floor(Math.random() * allKeys.length)];
+                let randomStage = jumpStages[Math.floor(Math.random() * jumpStages.length)];
+                let rData = jumpDict[randomLet][randomStage];
+                // Убеждаемся, что неправильное слово НЕ содержит искомую букву в искомой позиции 
+                // (Для простоты просто берем слова на другие буквы)
+                if (randomLet !== targetLetter && !wrongOptions.includes(rData)) {
+                    wrongOptions.push(rData);
+                }
             }
 
-            // Запоминаем финальную позицию для следующих проверок
-            placedStarsPositions.push({top, left});
+            let padsData = [correctData, ...wrongOptions];
+            padsData.sort(() => Math.random() - 0.5); // Перемешиваем кувшинки
 
-            el.style.top = top + '%';
-            el.style.left = left + '%';
-
-            // Рандомный размер звезды для разнообразия
-            const scale = 0.8 + Math.random() * 0.4; // от 0.8 до 1.2
-            el.style.transform = `translate(-50%, -50%) scale(${scale})`;
-
-            // Вставляем SVG звезду и букву поверх неё
-            el.innerHTML = `
-                <svg class="star-svg" viewBox="0 0 51 48" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#FFD700" d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"/>
-                </svg>
-                <span class="star-letter">${letter}</span>
-            `;
-
-            // Обработка клика
-            el.onclick = function() {
-                if (el.classList.contains('falling')) return; // Если уже падает - ничего не делаем
-
-                el.classList.add('falling');
-                audio.playStar(); // Волшебный звук падающей звезды
-
-                foundCount++;
-                if (foundCount >= totalCount) {
-                    setTimeout(() => {
-                        audio.playWin(); // Победный аккорд
-                        winMessageStars.style.display = 'block';
-                    }, 1500); // Ждем пока упадет последняя звезда
-                }
-            };
-
-            starsContainer.appendChild(el);
-        }
-
-        // Создание элемента буквы на поле
-        function createLetterElement(letter) {
-            const el = document.createElement('div');
-            el.className = 'game-item';
-            el.innerText = letter;
-
-            // Рандомная позиция (от 10% до 90% экрана, чтобы не вылезало за края)
-            const top = Math.floor(Math.random() * 80) + 10;
-            const left = Math.floor(Math.random() * 80) + 10;
-            
-            el.style.top = top + '%';
-            el.style.left = left + '%';
-            
-            // Немного поворачиваем буквы для игривости
-            const rotation = Math.floor(Math.random() * 40) - 20; // от -20 до +20 градусов
-            el.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-
-            // Обработка клика
-            el.onclick = function() {
-                if (el.classList.contains('found')) return; // Если уже нашли - ничего не делаем
-
-                el.classList.add('found');
-                audio.playMagic(); // Звук волшебного превращения
+            padsData.forEach((data, index) => {
+                const pad = document.createElement('div');
+                pad.className = 'lilypad';
                 
-                // Вспышка фонарика при правильном клике
-                flashLight();
+                // SVG Кувшинки
+                pad.innerHTML = `
+                    <svg class="lilypad-svg" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#4caf50" d="M50 0 C90 0 100 20 100 25 C100 30 90 50 50 50 C10 50 0 30 0 25 C0 20 10 0 50 0 Z"/>
+                        <path fill="#0277bd" d="M50 0 L45 20 L55 20 Z"/>
+                    </svg>
+                    <div class="lilypad-emoji">${data[1]}</div>
+                    <div class="lilypad-word">${data[0]}</div>
+                `;
 
-                // Превращаем букву в картинку
-                const emoji = dictionary[letter] || '⭐'; // Звездочка, если буквы нет в словаре (например Ъ)
-                el.innerText = emoji;
-                el.style.transform = `translate(-50%, -50%) rotate(0deg) scale(1.2)`; // Убираем наклон
-
-                foundCount++;
-                if (foundCount >= totalCount) {
-                    setTimeout(() => {
-                        audio.playWin(); // Победный аккорд
-                        winMessageFlashlight.style.display = 'block';
-                    }, 1000);
-                }
-            };
-
-            itemsContainer.appendChild(el);
+                pad.onclick = function() {
+                    if (data === correctData) {
+                        jumpFrogTo(pad);
+                    } else {
+                        audio.play('error');
+                        pad.style.transform = 'translateY(10px)';
+                        setTimeout(() => pad.style.transform = '', 200);
+                    }
+                };
+                container.appendChild(pad);
+            });
         }
 
-        // Управление фонариком
-        function updateFlashlight(x, y) {
-            if (!isGameRunning || currentMode !== 'flashlight') return;
-            // Создаем градиент: прозрачный круг (свет) переходящий в почти черную темноту
-            overlay.style.background = `radial-gradient(circle at ${x}px ${y}px, transparent 60px, rgba(5, 10, 15, 0.98) 160px)`;
-        }
+        function jumpFrogTo(padElement) {
+            audio.play('jump');
+            const frog = document.getElementById('jumping-frog');
+            const padRect = padElement.getBoundingClientRect();
+            
+            // Прыгаем на центр кувшинки
+            frog.style.left = (padRect.left + padRect.width/2) + 'px';
+            frog.style.bottom = (window.innerHeight - padRect.bottom + 20) + 'px'; // корректировка высоты
+            frog.style.transform = 'translateX(-50%) scale(0.8)'; // Чуть уменьшаем вдали
 
-        // Вспышка (когда ребенок кликает на букву)
-        function flashLight() {
-            overlay.style.background = 'transparent'; // Резко убираем темноту
             setTimeout(() => {
-                // Возвращаем темноту к текущей позиции мыши
-                // (Примерно в центр экрана или к последним известным координатам)
-                overlay.style.background = ''; 
-            }, 300);
+                jumpCurrentStageIdx++;
+                if (jumpCurrentStageIdx >= jumpStages.length) {
+                    jumpCurrentStageIdx = 0;
+                    jumpCurrentLetterIdx++;
+                }
+                
+                // Возвращаем лягушку назад и грузим новый уровень
+                frog.style.bottom = '-20%'; // Прячем вниз
+                setTimeout(() => {
+                    frog.style.transition = 'none';
+                    frog.style.left = '50%';
+                    frog.style.bottom = '5%';
+                    frog.style.transform = 'translateX(-50%) scale(1)';
+                    setTimeout(() => {
+                        frog.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                        renderJumpLevel();
+                    }, 50);
+                }, 400);
+
+            }, 1000);
         }
 
-        // Отслеживание мыши
-        document.addEventListener('mousemove', (e) => {
-            updateFlashlight(e.clientX, e.clientY);
-        });
 
-        // Отслеживание пальца на планшете/телефоне
-        document.addEventListener('touchmove', (e) => {
-            const touch = e.touches[0];
-            updateFlashlight(touch.clientX, touch.clientY);
-        });
+        // ================= СТАРЫЕ МЕХАНИКИ (Фонарик и Звезды) =================
+        function initFlashlight() {
+            const container = document.getElementById('items-container');
+            container.innerHTML = '';
+            document.getElementById('flashlight-overlay').style.background = `radial-gradient(circle at 50% 50%, transparent 60px, rgba(5, 10, 15, 0.98) 160px)`;
+            playLetters.forEach(letter => {
+                const el = document.createElement('div'); el.className = 'game-item'; el.innerText = letter;
+                el.style.top = Math.floor(Math.random() * 80) + 10 + '%'; el.style.left = Math.floor(Math.random() * 80) + 10 + '%';
+                el.style.transform = `translate(-50%, -50%) rotate(${Math.floor(Math.random() * 40) - 20}deg)`;
+                el.onclick = function() {
+                    if (el.classList.contains('found')) return;
+                    el.classList.add('found'); audio.play('magic');
+                    document.getElementById('flashlight-overlay').style.background = 'transparent';
+                    setTimeout(() => document.getElementById('flashlight-overlay').style.background = '', 300);
+                    el.innerText = dictionary[letter] || '⭐';
+                    globalFoundCount++; checkWin(globalFoundCount, playLetters.length);
+                };
+                container.appendChild(el);
+            });
+        }
 
-        document.addEventListener('touchstart', (e) => {
-            const touch = e.touches[0];
-            updateFlashlight(touch.clientX, touch.clientY);
-        });
+        // Обновление фонарика
+        function updateFlashlight(x, y) {
+            if (isGameRunning && currentMode === 'flashlight') {
+                document.getElementById('flashlight-overlay').style.background = `radial-gradient(circle at ${x}px ${y}px, transparent 60px, rgba(5, 10, 15, 0.98) 160px)`;
+            }
+        }
+        document.addEventListener('mousemove', e => updateFlashlight(e.clientX, e.clientY));
+        document.addEventListener('touchmove', e => updateFlashlight(e.touches[0].clientX, e.touches[0].clientY));
 
+        // Звездопад
+        let placedStarsPositions = [];
+        let bgStarsGenerated = false;
+        function initStars() {
+            const container = document.getElementById('stars-container');
+            container.innerHTML = ''; placedStarsPositions = [];
+            if (!bgStarsGenerated) {
+                const bgContainer = document.getElementById('bg-stars-container');
+                const colors = ['#ffffff', '#ffeb3b', '#b3e5fc', '#ffcdd2'];
+                for (let i = 0; i < 70; i++) {
+                    const star = document.createElement('div'); star.className = 'bg-star';
+                    const size = Math.random() * 4 + 1;
+                    star.style.width = `${size}px`; star.style.height = `${size}px`;
+                    star.style.top = `${Math.random() * 100}%`; star.style.left = `${Math.random() * 100}%`;
+                    star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    star.style.animationDelay = `${Math.random() * 3}s`; star.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                    bgContainer.appendChild(star);
+                }
+                bgStarsGenerated = true;
+            }
+
+            playLetters.forEach(letter => {
+                const el = document.createElement('div'); el.className = 'star-item';
+                const minDist = Math.max(12, 25 - playLetters.length);
+                let top, left, valid = false, attempts = 0;
+                while (!valid && attempts < 100) {
+                    top = Math.floor(Math.random() * 70) + 15; left = Math.floor(Math.random() * 80) + 10; valid = true;
+                    for (let pos of placedStarsPositions) {
+                        if (Math.sqrt(Math.pow(pos.left - left, 2) + Math.pow(pos.top - top, 2)) < minDist) { valid = false; break; }
+                    }
+                    attempts++;
+                }
+                placedStarsPositions.push({top, left});
+                el.style.top = top + '%'; el.style.left = left + '%';
+                el.style.transform = `translate(-50%, -50%) scale(${0.8 + Math.random() * 0.4})`;
+                el.innerHTML = `<svg class="star-svg" viewBox="0 0 51 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFD700" d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"/></svg><span class="star-letter">${letter}</span>`;
+                el.onclick = function() {
+                    if (el.classList.contains('falling')) return;
+                    el.classList.add('falling'); audio.play('magic'); // используем магический звук вместо старого
+                    globalFoundCount++; checkWin(globalFoundCount, playLetters.length);
+                };
+                container.appendChild(el);
+            });
+        }
     </script>
 </body>
 </html>
