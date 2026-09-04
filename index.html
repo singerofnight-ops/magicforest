@@ -57,7 +57,7 @@
 
         .btn-star { background-color: #673ab7; }
         .btn-frog1 { background-color: #4caf50; }
-        .btn-frog2 { background-color: #009688; }
+        .btn-air { background-color: #03a9f4; color: white; }
 
         .back-btn {
             position: absolute; top: 20px; left: 20px; z-index: 50;
@@ -77,14 +77,12 @@
 
         /* ================= 1. ФОНАРИК ================= */
         #game-screen {
-            display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #0b141a;
+            display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #0b141a;
         }
         #items-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; }
         .game-item {
-            position: absolute; font-size: 5rem; font-weight: 900; color: #fff;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5); cursor: pointer; user-select: none;
-            transition: all 0.5s; display: flex; align-items: center; justify-content: center;
+            position: absolute; font-size: 5rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            cursor: pointer; user-select: none; transition: all 0.5s; display: flex; align-items: center; justify-content: center;
             transform: translate(-50%, -50%);
         }
         .game-item.found { font-size: 6rem; color: #ffeb3b; z-index: 20; transform: translate(-50%, -50%) scale(1.2) rotate(0deg) !important; }
@@ -121,83 +119,128 @@
         /* ================= 3. ЛЯГУШКА И МУХИ ================= */
         #flies-screen {
             display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, #e1f5fe 0%, #b3e5fc 30%, #c8e6c9 30%, #8bc34a 100%);
-            overflow: hidden;
+            background: linear-gradient(to bottom, #e1f5fe 0%, #b3e5fc 30%, #c8e6c9 30%, #8bc34a 100%); overflow: hidden;
         }
         .frog-center {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 280px; height: 280px; display: flex; align-items: center; justify-content: center;
-            z-index: 20; 
+            width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; z-index: 20; 
         }
         .cute-frog-svg {
             width: 100%; height: 100%; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
             animation: frogBreathe 3s infinite ease-in-out alternate;
         }
-        @keyframes frogBreathe {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.02) translateY(-5px); }
-        }
-        /* НАДЕЖНЫЙ СЛОЙ ДЛЯ БУКВЫ ПОВЕРХ ЛЯГУШКИ */
+        @keyframes frogBreathe { 0% { transform: scale(1); } 100% { transform: scale(1.02) translateY(-5px); } }
+        
         .frog-belly-letter {
             position: absolute; top: 62%; left: 50%; transform: translate(-50%, -50%);
             font-size: 4.5rem; font-weight: 900; color: #1b5e20; z-index: 25; pointer-events: none;
         }
-        
-        /* МУХИ ТЕПЕРЬ ЛЕТАЮТ ПОВЕРХ ЛЯГУШКИ (z-index 30) */
         #flies-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 30; }
-        
         .fly-item {
             position: absolute; width: 140px; height: 140px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            transition: filter 0.2s; animation: flyFloat 3s infinite ease-in-out alternate;
-            transform-origin: center;
+            transition: filter 0.2s; animation: flyFloat 3s infinite ease-in-out alternate; transform-origin: center;
         }
         .fly-item:hover { filter: brightness(1.1) drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
         .fly-svg { width: 100%; height: 100%; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2)); }
-        
         @keyframes flyFloat {
             0% { transform: translate(-50%, -50%) rotate(-5deg); }
             100% { transform: translate(-50%, calc(-50% - 15px)) rotate(5deg); }
         }
-        
-        /* ЯЗЫК ЛЯГУШКИ ПОВЕРХ МУХ (z-index 40) */
         .frog-tongue {
             position: absolute; background-color: #ff5252; height: 12px; border-radius: 6px;
             transform-origin: left center; z-index: 40; display: none; box-shadow: 0 5px 5px rgba(0,0,0,0.2);
         }
 
-        /* ================= 4. ПРЫГУЧАЯ ЛЯГУШКА ================= */
-        #jump-screen {
+        /* ================= 4. ВОЗДУШНЫЕ МУШКИ (С КРАСНОЙ РАМКОЙ) ================= */
+        #air-flies-screen {
             display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, #81d4fa 0%, #0277bd 100%); overflow: hidden;
+            /* Нежное голубое акварельное небо */
+            background: linear-gradient(to bottom, #bbdefb 0%, #e1f5fe 50%, #f1f8e9 100%);
+            overflow: hidden;
         }
-        #jump-task-ui {
+
+        /* --- ДЕКОРАЦИИ ФОНА (Облака и Ветка) --- */
+        .air-decorations {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; /* Самый нижний слой, под мухами */
+        }
+
+        .cute-cloud {
+            position: absolute; fill: rgba(255, 255, 255, 0.9);
+            filter: drop-shadow(0 10px 15px rgba(0,150,255,0.1));
+        }
+        .cloud-1 { top: 15%; left: -10%; width: 200px; animation: floatCloud 25s linear infinite alternate; }
+        .cloud-2 { top: 45%; right: -5%; width: 150px; animation: floatCloud 35s linear infinite alternate-reverse; }
+        .cloud-3 { top: 75%; left: 10%; width: 120px; animation: floatCloud 20s linear infinite alternate; opacity: 0.7; }
+        
+        @keyframes floatCloud {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50px); }
+        }
+
+        .cute-branch {
+            position: absolute; top: -20px; right: -20px; width: 280px;
+            transform-origin: top right;
+            animation: swayBranch 6s ease-in-out infinite alternate;
+            filter: drop-shadow(-5px 10px 10px rgba(0,0,0,0.15));
+        }
+
+        @keyframes swayBranch {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(4deg); }
+        }
+
+        /* Красная рамка с образцом буквы сверху */
+        #air-target-box {
             position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-            background: rgba(255,255,255,0.9); padding: 15px 30px; border-radius: 20px;
-            font-size: 1.8rem; font-weight: bold; color: #333; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 20;
+            width: 140px; height: 140px; border: 8px solid #ff0000;
+            background-color: white; border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 20;
         }
-        .highlight-pos { color: #d32f2f; text-transform: uppercase; font-size: 2rem; }
-        .highlight-let { color: #1976d2; font-size: 2.5rem; }
+
+        /* Шрифт с засечками как на референсе */
+        #air-target-letter {
+            font-size: 6rem; font-weight: bold; color: #333;
+            font-family: 'Times New Roman', Times, serif; 
+        }
+
+        /* Скрываем всё, что вылетает за края экрана */
+        #air-flies-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; overflow: hidden; }
+
+        /* Обертка для мухи (отвечает за движение снизу вверх) */
+        .air-fly-wrapper {
+            position: absolute; width: 130px; height: 130px; z-index: 10;
+        }
+
+        /* Внутренний блок мухи (отвечает за клики и анимацию исчезновения) */
+        .air-fly-inner {
+            width: 100%; height: 100%; cursor: pointer; transition: transform 0.2s;
+        }
+        .air-fly-inner:hover { transform: scale(1.15) !important; }
         
-        #lilypads-container {
-            position: absolute; top: 30%; left: 0; right: 0; height: 40%;
-            display: flex; justify-content: space-around; align-items: center; padding: 0 50px; z-index: 10;
+        .air-fly-svg {
+            width: 100%; height: 100%; filter: drop-shadow(0 5px 8px rgba(0,0,0,0.2));
         }
-        .lilypad {
-            position: relative; width: 140px; height: 100px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
-            transition: transform 0.2s;
+
+        /* АНИМАЦИЯ: бесконечный полет снизу вверх с легким зигзагом */
+        @keyframes flyUpwards {
+            0% { top: 110%; transform: translateX(-20px) rotate(-10deg); }
+            25% { transform: translateX(20px) rotate(10deg); }
+            50% { transform: translateX(-20px) rotate(-10deg); }
+            75% { transform: translateX(20px) rotate(10deg); }
+            100% { top: -30%; transform: translateX(-20px) rotate(-10deg); }
         }
-        .lilypad:hover { transform: scale(1.1); }
-        .lilypad-svg { position: absolute; width: 100%; height: 100%; z-index: 1; filter: drop-shadow(0 10px 5px rgba(0,0,0,0.2)); }
-        .lilypad-emoji { position: relative; font-size: 4rem; z-index: 2; margin-bottom: -10px; text-shadow: 0 5px 10px rgba(0,0,0,0.3); }
-        .lilypad-word { position: relative; z-index: 2; font-weight: 900; background: white; padding: 2px 10px; border-radius: 10px; color: black; font-size: 1.2rem; margin-top: 5px; border: 2px solid #ccc; }
-        
-        #jumping-frog {
-            position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
-            width: 150px; height: 150px; z-index: 30; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+
+        /* Анимация пойманной мушки (магическое исчезновение) */
+        .air-fly-inner.caught {
+            transition: all 0.4s ease-out;
+            transform: scale(1.5) rotate(360deg) !important;
+            opacity: 0;
+            filter: brightness(2) drop-shadow(0 0 20px yellow);
+            pointer-events: none;
         }
-        #jumping-frog .frog-belly-letter { font-size: 2.5rem; top: 62%; }
 
     </style>
 </head>
@@ -213,8 +256,8 @@
             <div class="mode-buttons">
                 <button class="btn" onclick="startGame('flashlight')">🔦 Фонарик</button>
                 <button class="btn btn-star" onclick="startGame('stars')">⭐ Звездопад</button>
-                <button class="btn btn-frog1" onclick="startGame('flies')">🪰 Ловить мух</button>
-                <button class="btn btn-frog2" onclick="startGame('jump')">🪷 Кувшинки</button>
+                <button class="btn btn-frog1" onclick="startGame('flies')">🐸 Лягушка</button>
+                <button class="btn btn-air" onclick="startGame('air')">🪰 Ловить мух (Рамка)</button>
             </div>
         </div>
     </div>
@@ -236,45 +279,25 @@
         <div id="win-message-stars" class="win-message"><h2>Все звезды собраны! 🌟</h2><button class="btn btn-star" onclick="endGame()">Меню</button></div>
     </div>
 
-    <!-- 3. ЛОБИТЬ МУХ -->
+    <!-- 3. ЛОБИТЬ МУХ (С ЛЯГУШКОЙ В ЦЕНТРЕ) -->
     <div id="flies-screen">
         <button class="back-btn" onclick="endGame()">🚪 Выйти</button>
         
         <div class="frog-center" id="flies-frog">
-            <!-- Красивая векторная лягушка (без текста внутри SVG) -->
             <svg viewBox="0 0 200 200" class="cute-frog-svg">
-                <!-- Кувшинка -->
                 <path d="M10 160 Q 100 120 190 160 Q 100 200 10 160" fill="#4caf50"/>
                 <path d="M100 160 L 70 140 L 100 180 Z" fill="#388e3c"/>
-                
-                <!-- Задние лапки -->
-                <circle cx="50" cy="130" r="25" fill="#7cb342"/>
-                <circle cx="150" cy="130" r="25" fill="#7cb342"/>
-                <!-- Передние лапки -->
+                <circle cx="50" cy="130" r="25" fill="#7cb342"/><circle cx="150" cy="130" r="25" fill="#7cb342"/>
                 <path d="M 60 160 Q 40 170 50 180" fill="none" stroke="#7cb342" stroke-width="10" stroke-linecap="round"/>
                 <path d="M 140 160 Q 160 170 150 180" fill="none" stroke="#7cb342" stroke-width="10" stroke-linecap="round"/>
-                
-                <!-- Тело -->
                 <ellipse cx="100" cy="120" rx="60" ry="50" fill="#8bc34a"/>
-                <!-- Светлое пузико -->
                 <ellipse cx="100" cy="125" rx="40" ry="35" fill="#dcedc8"/>
-                
-                <!-- Голова -->
                 <ellipse cx="100" cy="70" rx="55" ry="40" fill="#8bc34a"/>
-                
-                <!-- Глаза -->
-                <circle cx="65" cy="40" r="20" fill="#8bc34a"/>
-                <circle cx="135" cy="40" r="20" fill="#8bc34a"/>
-                <circle cx="65" cy="40" r="14" fill="white"/>
-                <circle cx="135" cy="40" r="14" fill="white"/>
-                <circle cx="65" cy="40" r="6" fill="#1b5e20"/>
-                <circle cx="135" cy="40" r="6" fill="#1b5e20"/>
-                <circle cx="62" cy="37" r="2" fill="white"/>
-                <circle cx="132" cy="37" r="2" fill="white"/>
-                
-                <!-- Рот и щечки -->
-                <ellipse cx="55" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
-                <ellipse cx="145" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
+                <circle cx="65" cy="40" r="20" fill="#8bc34a"/><circle cx="135" cy="40" r="20" fill="#8bc34a"/>
+                <circle cx="65" cy="40" r="14" fill="white"/><circle cx="135" cy="40" r="14" fill="white"/>
+                <circle cx="65" cy="40" r="6" fill="#1b5e20"/><circle cx="135" cy="40" r="6" fill="#1b5e20"/>
+                <circle cx="62" cy="37" r="2" fill="white"/><circle cx="132" cy="37" r="2" fill="white"/>
+                <ellipse cx="55" cy="80" rx="8" ry="4" fill="#ffcdd2"/><ellipse cx="145" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
                 <path d="M 70 85 Q 100 105 130 85" fill="transparent" stroke="#33691e" stroke-width="4" stroke-linecap="round"/>
             </svg>
             <div class="frog-belly-letter" id="frog-belly-target">А</div>
@@ -285,91 +308,65 @@
         <div id="win-message-flies" class="win-message"><h2>Лягушка сыта! 🪰🐸</h2><button class="btn btn-frog1" onclick="endGame()">Меню</button></div>
     </div>
 
-    <!-- 4. ПРЫГУЧАЯ ЛЯГУШКА -->
-    <div id="jump-screen">
-        <button class="back-btn" onclick="endGame()">🚪 Выйти</button>
+    <!-- 4. ВОЗДУШНЫЕ МУШКИ (ИГРА С КРАСНОЙ РАМКОЙ) -->
+    <div id="air-flies-screen">
+        <button class="back-btn" onclick="endGame()" style="color: #333; border-color: #333; z-index: 50;">🚪 Выйти</button>
         
-        <div id="jump-task-ui">
-            Где звук <span class="highlight-let" id="jump-task-letter">А</span>?<br>
-            В <span class="highlight-pos" id="jump-task-pos">НАЧАЛЕ</span> слова
-        </div>
-
-        <div id="lilypads-container"></div>
-
-        <div id="jumping-frog">
-            <svg viewBox="0 0 200 200" class="cute-frog-svg">
-                <!-- Кувшинка не нужна во время прыжка, оставим только лягушку -->
-                <!-- Задние лапки -->
-                <circle cx="50" cy="130" r="25" fill="#7cb342"/>
-                <circle cx="150" cy="130" r="25" fill="#7cb342"/>
-                <!-- Передние лапки -->
-                <path d="M 60 160 Q 40 170 50 180" fill="none" stroke="#7cb342" stroke-width="10" stroke-linecap="round"/>
-                <path d="M 140 160 Q 160 170 150 180" fill="none" stroke="#7cb342" stroke-width="10" stroke-linecap="round"/>
-                <!-- Тело -->
-                <ellipse cx="100" cy="120" rx="60" ry="50" fill="#8bc34a"/>
-                <!-- Светлое пузико -->
-                <ellipse cx="100" cy="125" rx="40" ry="35" fill="#dcedc8"/>
-                <!-- Голова -->
-                <ellipse cx="100" cy="70" rx="55" ry="40" fill="#8bc34a"/>
-                <!-- Глаза -->
-                <circle cx="65" cy="40" r="20" fill="#8bc34a"/>
-                <circle cx="135" cy="40" r="20" fill="#8bc34a"/>
-                <circle cx="65" cy="40" r="14" fill="white"/>
-                <circle cx="135" cy="40" r="14" fill="white"/>
-                <circle cx="65" cy="40" r="6" fill="#1b5e20"/>
-                <circle cx="135" cy="40" r="6" fill="#1b5e20"/>
-                <circle cx="62" cy="37" r="2" fill="white"/>
-                <circle cx="132" cy="37" r="2" fill="white"/>
-                <!-- Рот и щечки -->
-                <ellipse cx="55" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
-                <ellipse cx="145" cy="80" rx="8" ry="4" fill="#ffcdd2"/>
-                <path d="M 70 85 Q 100 105 130 85" fill="transparent" stroke="#33691e" stroke-width="4" stroke-linecap="round"/>
+        <!-- Красивый фон с облаками и веточкой -->
+        <div class="air-decorations">
+            <!-- Облако 1 -->
+            <svg class="cute-cloud cloud-1" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/>
             </svg>
-            <div class="frog-belly-letter" id="jump-frog-letter">А</div>
+            <!-- Облако 2 -->
+            <svg class="cute-cloud cloud-2" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/>
+            </svg>
+            <!-- Облако 3 -->
+            <svg class="cute-cloud cloud-3" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/>
+            </svg>
+            
+            <!-- Свисающая веточка справа -->
+            <svg class="cute-branch" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Ветка -->
+                <path d="M 220 -20 Q 120 100 30 180" fill="none" stroke="#795548" stroke-width="12" stroke-linecap="round"/>
+                <path d="M 140 60 Q 90 140 80 180" fill="none" stroke="#795548" stroke-width="8" stroke-linecap="round"/>
+                <!-- Листики -->
+                <path d="M 30 180 Q 0 190 10 210 Q 40 210 30 180" fill="#aed581"/>
+                <path d="M 80 180 Q 50 190 60 210 Q 90 200 80 180" fill="#8bc34a"/>
+                <path d="M 140 60 Q 120 30 90 40 Q 110 70 140 60" fill="#8bc34a"/>
+                <path d="M 100 120 Q 70 100 50 120 Q 80 140 100 120" fill="#aed581"/>
+                <path d="M 180 30 Q 160 0 130 10 Q 150 40 180 30" fill="#aed581"/>
+                <!-- Розовый цветочек -->
+                <circle cx="95" cy="115" r="8" fill="#ff4081"/>
+                <circle cx="108" cy="115" r="8" fill="#ff4081"/>
+                <circle cx="102" cy="105" r="8" fill="#ff4081"/>
+                <circle cx="102" cy="125" r="8" fill="#ff4081"/>
+                <circle cx="102" cy="115" r="5" fill="#ffeb3b"/>
+            </svg>
         </div>
 
-        <div id="win-message-jump" class="win-message"><h2>Лягушка прошла болото! 🪷</h2><button class="btn btn-frog2" onclick="endGame()">Меню</button></div>
+        <!-- Красная рамка с образцом буквы -->
+        <div id="air-target-box">
+            <span id="air-target-letter">А</span>
+        </div>
+        
+        <!-- Контейнер для мушек -->
+        <div id="air-flies-container"></div>
+        
+        <div id="win-message-air" class="win-message">
+            <h2 style="color: #ffeb3b; text-shadow: 2px 2px 4px #000;">Все мушки пойманы! 🪰✨</h2>
+            <button class="btn btn-air" onclick="endGame()">Меню</button>
+        </div>
     </div>
 
     <script>
-        // --- СЛОВАРИ И ДАННЫЕ ---
-        // Для фонарика
         const dictionary = {
             'А': '🍉', 'Б': '🍌', 'В': '🚁', 'Г': '🍄', 'Д': '🏠', 'Е': '🦝', 'Ё': '🦔', 'Ж': '🦒', 'З': '☂️',
             'И': '🧸', 'Й': '🧘', 'К': '🐱', 'Л': '🦊', 'М': '🚗', 'Н': '✂️', 'О': '🐒', 'П': '🐧', 'Р': '🚀',
             'С': '🐘', 'Т': '🐯', 'У': '🐌', 'Ф': '🔦', 'Х': '🍞', 'Ц': '🐥', 'Ч': '🐢', 'Ш': '🎈', 'Щ': '🪥',
             'Э': '🚜', 'Ю': '🏕️', 'Я': '🍎'
-        };
-
-        // Для кувшинок: Строгий словарь позиций звуков [word, emoji]
-        const jumpDict = {
-            'А': { start: ['Арбуз', '🍉'], middle: ['Шар', '🎈'], end: ['Луна', '🌙'] },
-            'Б': { start: ['Банан', '🍌'], middle: ['Собака', '🐶'], end: ['Зуб', '🦷'] },
-            'В': { start: ['Вертолет', '🚁'], middle: ['Сова', '🦉'], end: ['Лев', '🦁'] },
-            'Г': { start: ['Гриб', '🍄'], middle: ['Вагон', '🚆'], end: ['Снег', '❄️'] }, // Оглушение в конце, но для буквы пойдет
-            'Д': { start: ['Дом', '🏠'], middle: ['Вода', '💧'], end: ['Мед', '🍯'] },
-            'Е': { start: ['Енот', '🦝'], middle: ['Лес', '🌲'], end: ['Солнце', '☀️'] },
-            'Ж': { start: ['Жираф', '🦒'], middle: ['Ножницы', '✂️'], end: ['Нож', '🔪'] },
-            'З': { start: ['Зонт', '☂️'], middle: ['Коза', '🐐'], end: ['Глаз', '👁️'] },
-            'И': { start: ['Игрушка', '🧸'], middle: ['Лимон', '🍋'], end: ['Очки', '👓'] },
-            'К': { start: ['Кот', '🐱'], middle: ['Тыква', '🎃'], end: ['Лук', '🧅'] },
-            'Л': { start: ['Лиса', '🦊'], middle: ['Слон', '🐘'], end: ['Стул', '🪑'] },
-            'М': { start: ['Машина', '🚗'], middle: ['Лимон', '🍋'], end: ['Дом', '🏠'] },
-            'Н': { start: ['Ножницы', '✂️'], middle: ['Солнце', '☀️'], end: ['Слон', '🐘'] },
-            'О': { start: ['Обезьяна', '🐒'], middle: ['Дом', '🏠'], end: ['Яблоко', '🍎'] },
-            'П': { start: ['Пингвин', '🐧'], middle: ['Кепка', '🧢'], end: ['Суп', '🍲'] },
-            'Р': { start: ['Ракета', '🚀'], middle: ['Арбуз', '🍉'], end: ['Помидор', '🍅'] },
-            'С': { start: ['Слон', '🐘'], middle: ['Лиса', '🦊'], end: ['Ананас', '🍍'] },
-            'Т': { start: ['Тигр', '🐯'], middle: ['Утка', '🦆'], end: ['Кот', '🐱'] },
-            'У': { start: ['Улитка', '🐌'], middle: ['Жук', '🐛'], end: ['Кенгуру', '🦘'] },
-            'Ф': { start: ['Фонарик', '🔦'], middle: ['Софа', '🛋️'], end: ['Шарф', '🧣'] },
-            'Х': { start: ['Хлеб', '🍞'], middle: ['Муха', '🪰'], end: ['Петух', '🐓'] },
-            'Ц': { start: ['Цыпленок', '🐥'], middle: ['Овца', '🐑'], end: ['Огурец', '🥒'] },
-            'Ч': { start: ['Черепаха', '🐢'], middle: ['Очки', '👓'], end: ['Мяч', '⚽'] },
-            'Ш': { start: ['Шарик', '🎈'], middle: ['Мышка', '🐭'], end: ['Карандаш', '✏️'] },
-            'Э': { start: ['Экскаватор', '🚜'], middle: ['Мэр', '👨‍💼'], end: ['Алоэ', '🪴'] },
-            'Ю': { start: ['Юла', '🌀'], middle: ['Тюльпан', '🌷'], end: ['Меню', '📜'] },
-            'Я': { start: ['Яблоко', '🍎'], middle: ['Мяч', '⚽'], end: ['Змея', '🐍'] }
         };
 
         // --- АУДИО ---
@@ -391,24 +388,14 @@
                     gain.gain.setValueAtTime(0.2, t); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.1);
                     osc.start(); osc.stop(t + 0.1);
                 } else if (type === 'magic') {
-                    osc.type = 'triangle'; osc.frequency.setValueAtTime(400, t); osc.frequency.exponentialRampToValueAtTime(1000, t + 0.3);
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(400, t); osc.frequency.exponentialRampToValueAtTime(1200, t + 0.3);
                     gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(0.3, t + 0.05); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.3);
                     osc.start(); osc.stop(t + 0.3);
-                } else if (type === 'slurp') { // Звук съедания мухи
+                } else if (type === 'slurp') {
                     osc.type = 'sine'; osc.frequency.setValueAtTime(600, t); osc.frequency.exponentialRampToValueAtTime(1500, t + 0.15);
                     gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(0.4, t + 0.05); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.2);
-                    
-                    const osc2 = this.ctx.createOscillator();
-                    osc2.type = 'triangle'; osc2.frequency.setValueAtTime(800, t); osc2.frequency.exponentialRampToValueAtTime(2000, t + 0.15);
-                    osc2.connect(gain);
-                    osc2.start(); osc2.stop(t + 0.2);
-                    
                     osc.start(); osc.stop(t + 0.2);
-                } else if (type === 'jump') { // Звук прыжка
-                    osc.type = 'sine'; osc.frequency.setValueAtTime(150, t); osc.frequency.exponentialRampToValueAtTime(400, t + 0.3);
-                    gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(0.3, t + 0.05); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.3);
-                    osc.start(); osc.stop(t + 0.3);
-                } else if (type === 'error') { // Ошибка (не та кувшинка)
+                } else if (type === 'error') {
                     osc.type = 'square'; osc.frequency.setValueAtTime(150, t); osc.frequency.exponentialRampToValueAtTime(100, t + 0.2);
                     gain.gain.setValueAtTime(0.1, t); gain.gain.exponentialRampToValueAtTime(0.01, t + 0.2);
                     osc.start(); osc.stop(t + 0.2);
@@ -434,22 +421,21 @@
         let playLetters = [];
         let globalFoundCount = 0;
 
-        // Элементы
         const setupScreen = document.getElementById('setup-screen');
         const screens = {
             'flashlight': document.getElementById('game-screen'),
             'stars': document.getElementById('stars-screen'),
             'flies': document.getElementById('flies-screen'),
-            'jump': document.getElementById('jump-screen')
+            'air': document.getElementById('air-flies-screen')
         };
         const wins = {
             'flashlight': document.getElementById('win-message-flashlight'),
             'stars': document.getElementById('win-message-stars'),
             'flies': document.getElementById('win-message-flies'),
-            'jump': document.getElementById('win-message-jump')
+            'air': document.getElementById('win-message-air')
         };
 
-        // --- ГЛАВНЫЙ КОНТРОЛЛЕР ---
+        // Исправленная главная функция, которая включает и выключает экраны
         function startGame(mode) {
             audio.init(); audio.play('click');
             
@@ -457,15 +443,6 @@
             let letters = rawText.match(/[А-ЯЁ]/g);
 
             if (!letters || letters.length === 0) { alert("Введите хотя бы одну букву!"); return; }
-
-            // Фильтрация для игры в кувшинки (оставляем только те, что есть в словаре)
-            if (mode === 'jump') {
-                letters = letters.filter(l => jumpDict[l]);
-                if (letters.length === 0) {
-                    alert("Для этих букв пока нет картинок в болоте! Попробуйте А, О, У, М, С...");
-                    return;
-                }
-            }
 
             playLetters = letters;
             currentMode = mode;
@@ -481,7 +458,7 @@
             if (mode === 'flashlight') initFlashlight();
             else if (mode === 'stars') initStars();
             else if (mode === 'flies') initFlies();
-            else if (mode === 'jump') initJump();
+            else if (mode === 'air') initAirFlies();
         }
 
         function endGame() {
@@ -500,7 +477,114 @@
             }
         }
 
-        // ================= МЕХАНИКА: МУХИ =================
+        // ================= МЕХАНИКА: НОВЫЕ ВОЗДУШНЫЕ МУШКИ (РАМКА) =================
+        let airCurrentIdx = 0;
+        let airFliesToCatch = 0;
+        let airFliesCaught = 0;
+
+        function initAirFlies() {
+            airCurrentIdx = 0;
+            renderAirFliesLevel();
+        }
+
+        function renderAirFliesLevel() {
+            if (airCurrentIdx >= playLetters.length) { checkWin(1, 1); return; }
+            
+            const targetLetter = playLetters[airCurrentIdx];
+            
+            // Ставим букву в красную рамку наверху
+            document.getElementById('air-target-letter').textContent = targetLetter;
+            
+            const container = document.getElementById('air-flies-container');
+            container.innerHTML = '';
+
+            airFliesToCatch = 3 + Math.floor(Math.random() * 2); // 3-4 правильные мухи
+            airFliesCaught = 0;
+
+            /* Создаем 6 независимых дорожек, чтобы мухи не сталкивались */
+            const lanesCount = 6; 
+            const totalFlies = lanesCount; 
+            
+            const allAlphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ".split('');
+            let levelLetters = [];
+            
+            // Заполняем правильными буквами
+            for(let i = 0; i < airFliesToCatch; i++) {
+                levelLetters.push(targetLetter);
+            }
+            
+            // Добиваем остальные дорожки неправильными буквами
+            while(levelLetters.length < totalFlies) {
+                let randomLet = allAlphabet[Math.floor(Math.random()*allAlphabet.length)];
+                if(randomLet !== targetLetter) levelLetters.push(randomLet);
+            }
+            levelLetters.sort(() => Math.random() - 0.5); // Перемешиваем по дорожкам
+
+            // Вычисляем ширину одной дорожки (в процентах)
+            const laneWidth = 100 / lanesCount;
+
+            levelLetters.forEach((letter, index) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'air-fly-wrapper';
+                
+                // Ставим муху строго по центру её личной дорожки
+                const laneCenter = (index * laneWidth) + (laneWidth / 2);
+                wrapper.style.left = `calc(${laneCenter}% - 65px)`; 
+                
+                // Рандомная скорость (СДЕЛАЛИ СИЛЬНО МЕДЛЕННЕЕ) и задержка старта
+                const duration = 12 + Math.random() * 8; // Полет будет занимать от 12 до 20 секунд
+                const delay = -(Math.random() * 12); 
+
+                // Запускаем бесконечную анимацию полета вверх
+                wrapper.style.animation = `flyUpwards ${duration}s linear infinite`;
+                wrapper.style.animationDelay = `${delay}s`;
+
+                const inner = document.createElement('div');
+                inner.className = 'air-fly-inner';
+                
+                inner.innerHTML = `
+                    <svg viewBox="0 0 100 100" class="air-fly-svg">
+                        <path d="M50 45 Q 10 0 5 30 Q 25 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
+                        <path d="M50 45 Q 90 0 95 30 Q 75 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
+                        <ellipse cx="50" cy="55" rx="22" ry="30" fill="#37474f"/>
+                        <circle cx="50" cy="28" r="14" fill="#263238"/>
+                        <circle cx="43" cy="25" r="5" fill="white"/><circle cx="57" cy="25" r="5" fill="white"/>
+                        <circle cx="43" cy="25" r="2" fill="black"/><circle cx="57" cy="25" r="2" fill="black"/>
+                        <circle cx="50" cy="58" r="18" fill="#fff"/>
+                        <text x="50" y="58" dy=".35em" text-anchor="middle" font-family="'Nunito', sans-serif" font-size="28" font-weight="900" fill="#b71c1c">${letter}</text>
+                    </svg>
+                `;
+
+                inner.onclick = function() {
+                    if (inner.classList.contains('caught')) return;
+
+                    if (letter === targetLetter) {
+                        inner.classList.add('caught');
+                        audio.play('magic'); // Волшебный звук
+                        
+                        // Останавливаем полет этой мухи (застывает на месте и исчезает)
+                        wrapper.style.animationPlayState = 'paused';
+                        
+                        airFliesCaught++;
+                        if (airFliesCaught >= airFliesToCatch) {
+                            setTimeout(() => {
+                                airCurrentIdx++;
+                                renderAirFliesLevel();
+                            }, 800);
+                        }
+                    } else {
+                        audio.play('error');
+                        inner.style.filter = 'grayscale(1) opacity(0.5)';
+                        setTimeout(() => inner.style.filter = '', 200);
+                    }
+                };
+                
+                wrapper.appendChild(inner);
+                container.appendChild(wrapper);
+            });
+        }
+
+        // ================= МЕХАНИКА: ЛЯГУШКА И МУХИ (В ЦЕНТРЕ) =================
         let fliesCurrentIdx = 0;
         let fliesToCatch = 0;
         let fliesCaught = 0;
@@ -514,16 +598,16 @@
             if (fliesCurrentIdx >= playLetters.length) { checkWin(1, 1); return; }
             
             const targetLetter = playLetters[fliesCurrentIdx];
-            document.getElementById('frog-belly-target').innerText = targetLetter;
+            document.getElementById('frog-belly-target').textContent = targetLetter;
             
             const container = document.getElementById('flies-container');
             container.innerHTML = '';
             document.getElementById('frog-tongue').style.display = 'none';
 
-            fliesToCatch = 3 + Math.floor(Math.random() * 2); // 3 или 4 правильных мухи
+            fliesToCatch = 3 + Math.floor(Math.random() * 2);
             fliesCaught = 0;
 
-            const totalFlies = 10; // Всего 10 больших мух
+            const totalFlies = 10;
             const allAlphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ".split('');
             let levelLetters = Array(fliesToCatch).fill(targetLetter);
             
@@ -531,63 +615,45 @@
                 let randomLet = allAlphabet[Math.floor(Math.random()*allAlphabet.length)];
                 if(randomLet !== targetLetter) levelLetters.push(randomLet);
             }
-            // Перемешиваем
             levelLetters.sort(() => Math.random() - 0.5);
 
             levelLetters.forEach((letter, index) => {
                 const fly = document.createElement('div');
                 fly.className = 'fly-item';
                 
-                // Векторная милая муха (буква отцентрирована внутри SVG)
                 fly.innerHTML = `
                     <svg viewBox="0 0 100 100" class="fly-svg">
-                        <!-- Крылышки -->
                         <path d="M50 45 Q 10 0 5 30 Q 25 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
                         <path d="M50 45 Q 90 0 95 30 Q 75 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
-                        <!-- Тельце -->
                         <ellipse cx="50" cy="55" rx="22" ry="30" fill="#37474f"/>
                         <circle cx="50" cy="28" r="14" fill="#263238"/>
-                        <!-- Глазки -->
-                        <circle cx="43" cy="25" r="5" fill="white"/>
-                        <circle cx="57" cy="25" r="5" fill="white"/>
-                        <circle cx="43" cy="25" r="2" fill="black"/>
-                        <circle cx="57" cy="25" r="2" fill="black"/>
-                        <!-- Белое пузико для буквы -->
+                        <circle cx="43" cy="25" r="5" fill="white"/><circle cx="57" cy="25" r="5" fill="white"/>
+                        <circle cx="43" cy="25" r="2" fill="black"/><circle cx="57" cy="25" r="2" fill="black"/>
                         <circle cx="50" cy="58" r="18" fill="#fff"/>
-                        <!-- Буква -->
                         <text x="50" y="58" dy=".35em" text-anchor="middle" font-family="'Nunito', sans-serif" font-size="28" font-weight="900" fill="#b71c1c">${letter}</text>
                     </svg>
                 `;
                 
-                // Красивое распределение по эллипсу вокруг центра
                 const angle = (index / totalFlies) * Math.PI * 2;
-                const radiusX = 35 + Math.random() * 10; // 35-45% от ширины экрана
-                const radiusY = 30 + Math.random() * 10; // 30-40% от высоты
-                
+                const radiusX = 35 + Math.random() * 8; 
+                const radiusY = 25 + Math.random() * 8; 
                 let posX = 50 + Math.cos(angle) * radiusX;
-                let posY = 50 + Math.sin(angle) * radiusY;
-                
-                // Удерживаем в пределах экрана
-                posX = Math.max(10, Math.min(90, posX));
-                posY = Math.max(10, Math.min(90, posY));
+                let posY = 55 + Math.sin(angle) * radiusY; 
+                posX = Math.max(15, Math.min(85, posX));
+                posY = Math.max(25, Math.min(80, posY));
 
-                fly.style.left = posX + '%';
-                fly.style.top = posY + '%';
-                
-                // Рассинхрон анимации, чтобы летали вразнобой
-                fly.style.animationDelay = `-${Math.random()*4}s`;
-                fly.style.animationDuration = `${2.5 + Math.random()*2}s`;
+                fly.style.left = posX + '%'; fly.style.top = posY + '%';
+                fly.style.transform = `translate(-50%, -50%)`;
+                fly.style.animationDelay = `-${Math.random()*4}s`; fly.style.animationDuration = `${2.5 + Math.random()*2}s`;
 
                 fly.onclick = function(e) {
                     if (fly.classList.contains('caught')) return;
-
                     if (letter === targetLetter) {
-                        fly.classList.add('caught');
-                        catchFly(fly, e.clientX, e.clientY);
+                        fly.classList.add('caught'); catchFly(fly, e.clientX, e.clientY);
                     } else {
                         audio.play('error');
-                        fly.style.transform = 'scale(0.8) rotate(20deg)';
-                        setTimeout(() => fly.style.transform = '', 200);
+                        fly.style.filter = 'grayscale(1) opacity(0.5)';
+                        setTimeout(() => fly.style.filter = '', 200);
                     }
                 };
                 container.appendChild(fly);
@@ -599,146 +665,25 @@
             const tongue = document.getElementById('frog-tongue');
             const frogRect = document.getElementById('flies-frog').getBoundingClientRect();
             
-            // Вычисляем старт языка (изо рта лягушки, пропорционально размеру SVG)
             const startX = frogRect.left + frogRect.width / 2;
-            const startY = frogRect.top + frogRect.height * 0.42; // Точно на уровне рта (cy=80 из 200)
+            const startY = frogRect.top + frogRect.height * 0.42; 
             
-            // Конец языка - там где кликнули
             const length = Math.sqrt(Math.pow(flyX - startX, 2) + Math.pow(flyY - startY, 2));
             const angle = Math.atan2(flyY - startY, flyX - startX) * 180 / Math.PI;
 
-            tongue.style.display = 'block';
-            tongue.style.left = startX + 'px';
-            tongue.style.top = startY + 'px';
-            tongue.style.width = '0px';
-            tongue.style.transform = `rotate(${angle}deg)`;
+            tongue.style.display = 'block'; tongue.style.left = startX + 'px'; tongue.style.top = startY + 'px';
+            tongue.style.width = '0px'; tongue.style.transform = `rotate(${angle}deg)`;
 
-            // Анимация языка туда
             setTimeout(() => { tongue.style.width = length + 'px'; }, 10);
             
-            // Анимация съедания
             setTimeout(() => {
-                flyElement.style.display = 'none'; // Муха пропадает
-                tongue.style.width = '0px'; // Язык обратно
-                
+                flyElement.style.display = 'none'; tongue.style.width = '0px';
                 fliesCaught++;
                 if (fliesCaught >= fliesToCatch) {
-                    setTimeout(() => {
-                        fliesCurrentIdx++;
-                        renderFliesLevel();
-                    }, 600); // Небольшая пауза перед следующим уровнем
+                    setTimeout(() => { fliesCurrentIdx++; renderFliesLevel(); }, 600);
                 }
             }, 200);
         }
-
-        // ================= МЕХАНИКА: ПРЫГУЧАЯ ЛЯГУШКА =================
-        let jumpCurrentLetterIdx = 0;
-        const jumpStages = ['start', 'end', 'middle']; // Порядок: начало, конец, середина
-        const jumpStageNames = { 'start': 'НАЧАЛЕ', 'end': 'КОНЦЕ', 'middle': 'СЕРЕДИНЕ' };
-        let jumpCurrentStageIdx = 0;
-
-        function initJump() {
-            jumpCurrentLetterIdx = 0;
-            jumpCurrentStageIdx = 0;
-            document.getElementById('jumping-frog').style.bottom = '5%';
-            document.getElementById('jumping-frog').style.left = '50%';
-            renderJumpLevel();
-        }
-
-        function renderJumpLevel() {
-            if (jumpCurrentLetterIdx >= playLetters.length) { checkWin(1, 1); return; }
-
-            const targetLetter = playLetters[jumpCurrentLetterIdx];
-            const currentStage = jumpStages[jumpCurrentStageIdx];
-            
-            // Обновляем UI
-            document.getElementById('jump-frog-letter').innerText = targetLetter;
-            document.getElementById('jump-task-letter').innerText = targetLetter;
-            document.getElementById('jump-task-pos').innerText = jumpStageNames[currentStage];
-            
-            const container = document.getElementById('lilypads-container');
-            container.innerHTML = '';
-
-            // Получаем правильное слово
-            const correctData = jumpDict[targetLetter][currentStage]; 
-            
-            // Выбираем 2 неправильных (из других позиций или случайных букв)
-            let wrongOptions = [];
-            const allKeys = Object.keys(jumpDict);
-            while(wrongOptions.length < 2) {
-                let randomLet = allKeys[Math.floor(Math.random() * allKeys.length)];
-                let randomStage = jumpStages[Math.floor(Math.random() * jumpStages.length)];
-                let rData = jumpDict[randomLet][randomStage];
-                // Убеждаемся, что неправильное слово НЕ содержит искомую букву в искомой позиции 
-                // (Для простоты просто берем слова на другие буквы)
-                if (randomLet !== targetLetter && !wrongOptions.includes(rData)) {
-                    wrongOptions.push(rData);
-                }
-            }
-
-            let padsData = [correctData, ...wrongOptions];
-            padsData.sort(() => Math.random() - 0.5); // Перемешиваем кувшинки
-
-            padsData.forEach((data, index) => {
-                const pad = document.createElement('div');
-                pad.className = 'lilypad';
-                
-                // SVG Кувшинки
-                pad.innerHTML = `
-                    <svg class="lilypad-svg" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#4caf50" d="M50 0 C90 0 100 20 100 25 C100 30 90 50 50 50 C10 50 0 30 0 25 C0 20 10 0 50 0 Z"/>
-                        <path fill="#0277bd" d="M50 0 L45 20 L55 20 Z"/>
-                    </svg>
-                    <div class="lilypad-emoji">${data[1]}</div>
-                    <div class="lilypad-word">${data[0]}</div>
-                `;
-
-                pad.onclick = function() {
-                    if (data === correctData) {
-                        jumpFrogTo(pad);
-                    } else {
-                        audio.play('error');
-                        pad.style.transform = 'translateY(10px)';
-                        setTimeout(() => pad.style.transform = '', 200);
-                    }
-                };
-                container.appendChild(pad);
-            });
-        }
-
-        function jumpFrogTo(padElement) {
-            audio.play('jump');
-            const frog = document.getElementById('jumping-frog');
-            const padRect = padElement.getBoundingClientRect();
-            
-            // Прыгаем на центр кувшинки
-            frog.style.left = (padRect.left + padRect.width/2) + 'px';
-            frog.style.bottom = (window.innerHeight - padRect.bottom + 20) + 'px'; // корректировка высоты
-            frog.style.transform = 'translateX(-50%) scale(0.8)'; // Чуть уменьшаем вдали
-
-            setTimeout(() => {
-                jumpCurrentStageIdx++;
-                if (jumpCurrentStageIdx >= jumpStages.length) {
-                    jumpCurrentStageIdx = 0;
-                    jumpCurrentLetterIdx++;
-                }
-                
-                // Возвращаем лягушку назад и грузим новый уровень
-                frog.style.bottom = '-20%'; // Прячем вниз
-                setTimeout(() => {
-                    frog.style.transition = 'none';
-                    frog.style.left = '50%';
-                    frog.style.bottom = '5%';
-                    frog.style.transform = 'translateX(-50%) scale(1)';
-                    setTimeout(() => {
-                        frog.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-                        renderJumpLevel();
-                    }, 50);
-                }, 400);
-
-            }, 1000);
-        }
-
 
         // ================= СТАРЫЕ МЕХАНИКИ (Фонарик и Звезды) =================
         function initFlashlight() {
@@ -761,7 +706,6 @@
             });
         }
 
-        // Обновление фонарика
         function updateFlashlight(x, y) {
             if (isGameRunning && currentMode === 'flashlight') {
                 document.getElementById('flashlight-overlay').style.background = `radial-gradient(circle at ${x}px ${y}px, transparent 60px, rgba(5, 10, 15, 0.98) 160px)`;
@@ -770,7 +714,6 @@
         document.addEventListener('mousemove', e => updateFlashlight(e.clientX, e.clientY));
         document.addEventListener('touchmove', e => updateFlashlight(e.touches[0].clientX, e.touches[0].clientY));
 
-        // Звездопад
         let placedStarsPositions = [];
         let bgStarsGenerated = false;
         function initStars() {
@@ -808,7 +751,7 @@
                 el.innerHTML = `<svg class="star-svg" viewBox="0 0 51 48" xmlns="http://www.w3.org/2000/svg"><path fill="#FFD700" d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"/></svg><span class="star-letter">${letter}</span>`;
                 el.onclick = function() {
                     if (el.classList.contains('falling')) return;
-                    el.classList.add('falling'); audio.play('magic'); // используем магический звук вместо старого
+                    el.classList.add('falling'); audio.play('magic');
                     globalFoundCount++; checkWin(globalFoundCount, playLetters.length);
                 };
                 container.appendChild(el);
