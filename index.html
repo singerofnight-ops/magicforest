@@ -58,6 +58,7 @@
         .btn-star { background-color: #673ab7; }
         .btn-frog1 { background-color: #4caf50; }
         .btn-air { background-color: #03a9f4; color: white; }
+        .btn-apple { background-color: #e53935; color: white; } /* Кнопка для Яблони */
 
         .back-btn {
             position: absolute; top: 20px; left: 20px; z-index: 50;
@@ -242,6 +243,126 @@
             pointer-events: none;
         }
 
+        /* ================= 5. ЯБЛОНЯ ================= */
+        #apple-screen {
+            display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, #bbdefb 0%, #e1f5fe 60%, #c8e6c9 60%, #aed581 100%);
+            overflow: hidden;
+        }
+
+        .apple-tree-container {
+            position: absolute; top: 5%; left: 50%; transform: translateX(-50%);
+            width: 90vw; max-width: 600px; height: 70vh; 
+            display: flex; align-items: flex-end; justify-content: center;
+        }
+
+        .apple-tree-svg {
+            width: 100%; height: 100%; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.15));
+            overflow: visible;
+        }
+
+        /* Контейнер для слотов, жестко привязанный к SVG-дереву */
+        #tree-letters-container {
+            position: absolute; 
+            /* Эти проценты соответствуют области кроны внутри SVG (от 0 до 800) */
+            top: 5%; left: 5%; width: 90%; height: 80%; 
+            z-index: 10;
+        }
+
+        .tree-letter-slot {
+            position: absolute; width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem; font-weight: 900; color: #1b5e20; font-family: 'Comic Sans MS', 'Nunito', cursive;
+            cursor: pointer; transition: transform 0.2s; user-select: none;
+            background: rgba(255,255,255,0.01); border-radius: 50%;
+            transform: translate(-50%, -50%); /* Центрируем слот по координате */
+        }
+
+        .tree-letter-slot:hover { transform: translate(-50%, -50%) scale(1.1); }
+
+        .tree-letter-slot.covered {
+            color: transparent; pointer-events: none;
+        }
+
+        .apple-covered-img {
+            position: absolute; width: 150%; height: 150%; 
+            display: none; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+            animation: popApple 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .tree-letter-slot.covered .apple-covered-img { display: block; }
+
+        @keyframes popApple { 0% { transform: translate(-50%, -50%) scale(0); } 100% { transform: translate(-50%, -50%) scale(1); } }
+
+        /* Игровая панель внизу (кубик и корзина) */
+        .apple-bottom-panel {
+            position: absolute; bottom: 2%; left: 0; width: 100%; height: 18vh;
+            display: flex; justify-content: space-around; align-items: flex-end; padding: 0 5vw; box-sizing: border-box;
+            z-index: 20;
+        }
+
+        .basket-container {
+            width: 150px; position: relative;
+        }
+
+        .basket-svg { width: 100%; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2)); }
+
+        .dice-container {
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+        }
+
+        .apple-dice {
+            width: 80px; height: 80px; background: #ff7043; border-radius: 20px;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.2), 0 10px 15px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3.5rem; font-weight: bold; color: white; cursor: pointer;
+            text-shadow: 2px 2px 0 #d84315; border: 4px solid #d84315; transition: transform 0.1s;
+        }
+
+        .apple-dice:active { transform: translateY(5px); box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.2); }
+
+        .dice-animating { animation: rollDice 0.5s ease; }
+        @keyframes rollDice {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Кнопка печати */
+        .print-btn {
+            position: absolute; top: 20px; right: 20px; z-index: 50;
+            background: white; color: #333; border: 2px solid #333; padding: 10px 20px; border-radius: 20px;
+            font-size: 1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .print-btn:hover { background: #f0f0f0; }
+
+        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
+        @media print {
+            body * { visibility: hidden; }
+            #apple-screen, #apple-screen * { visibility: visible; }
+            
+            #apple-screen {
+                position: absolute; left: 0; top: 0; width: 100vw; height: 100vh;
+                background: white; overflow: visible; display: flex; align-items: center; justify-content: center;
+            }
+
+            .apple-tree-container {
+                position: static; transform: none; width: 100%; height: 90vh; max-width: none;
+            }
+
+            /* Делаем дерево черно-белым (контурным) */
+            .apple-tree-svg .tree-crown, .apple-tree-svg .tree-trunk { fill: white !important; stroke: black !important; stroke-width: 6px !important; }
+            .apple-tree-svg .tree-branch { stroke: black !important; }
+            .apple-tree-svg .tree-crown-highlight { display: none !important; } /* Прячем блики */
+            
+            /* Буквы делаем черными */
+            .tree-letter-slot { color: black !important; font-size: 2.5rem; }
+            
+            /* Прячем яблоки, корзину, кубик, траву и кнопки */
+            .apple-covered-img, .apple-bottom-panel, .apple-grass-bg, .back-btn, .print-btn, .win-message { display: none !important; }
+        }
+
     </style>
 </head>
 <body>
@@ -258,6 +379,7 @@
                 <button class="btn btn-star" onclick="startGame('stars')">⭐ Звездопад</button>
                 <button class="btn btn-frog1" onclick="startGame('flies')">🐸 Лягушка</button>
                 <button class="btn btn-air" onclick="startGame('air')">🪰 Ловить мух (Рамка)</button>
+                <button class="btn btn-apple" onclick="startGame('apple')">🍎 Яблоня (Игра + Печать)</button>
             </div>
         </div>
     </div>
@@ -361,6 +483,73 @@
         </div>
     </div>
 
+    <!-- 5. ЯБЛОНЯ -->
+    <div id="apple-screen">
+        <button class="back-btn" onclick="endGame()" style="color: #333; border-color: #333; z-index: 50;">🚪 Выйти</button>
+        <button class="print-btn" onclick="window.print()">🖨️ Напечатать ч/б</button>
+        
+        <!-- Красивая трава на фоне -->
+        <div class="apple-grass-bg" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 14vh; background: #8bc34a; border-top-left-radius: 50% 20px; border-top-right-radius: 50% 20px; z-index: 5;"></div>
+
+        <div class="apple-tree-container">
+            <!-- Векторное гигантское дерево (СУПЕР-КРОНА) -->
+            <svg class="apple-tree-svg" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+                <!-- Ствол -->
+                <path class="tree-trunk" d="M 430 800 Q 480 500 480 350 L 520 350 Q 520 500 570 800 Z" fill="#795548"/>
+                <!-- Ветки -->
+                <path class="tree-branch" d="M 480 400 Q 400 300 320 280 M 520 400 Q 600 300 680 280 M 500 350 L 500 200" fill="none" stroke="#795548" stroke-width="20" stroke-linecap="round"/>
+                
+                <!-- Крона (ЕЩЕ ШИРЕ, чтобы влезли все буквы) -->
+                <!-- Центр: (500, 300), Ширина: ~900 -->
+                <path class="tree-crown" d="
+                    M 350 600 
+                    C 100 600, 50 350, 250 250 
+                    C 250 50, 750 50, 750 250 
+                    C 950 350, 900 600, 650 600 
+                    C 600 750, 400 750, 350 600 Z" fill="#4caf50"/>
+                
+                <!-- Внутренний светлый контур для объема кроны -->
+                <path class="tree-crown-highlight" d="
+                    M 360 570 
+                    C 140 570, 100 370, 270 300 
+                    C 270 120, 730 120, 730 300 
+                    C 900 370, 860 570, 640 570 
+                    C 600 700, 400 700, 360 570 Z" fill="#66bb6a"/>
+            </svg>
+            
+            <!-- Контейнер для слотов с буквами (точно поверх кроны) -->
+            <div id="tree-letters-container"></div>
+        </div>
+
+        <div class="apple-bottom-panel">
+            <div class="dice-container">
+                <div class="apple-dice" id="apple-dice" onclick="rollAppleDice()">?</div>
+                <span style="color: #333; font-weight: bold; font-size: 1.2rem;">Бросить кубик</span>
+            </div>
+            
+            <div class="basket-container">
+                <!-- Векторная корзина с яблоками -->
+                <svg class="basket-svg" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Яблоки внутри корзины -->
+                    <circle cx="20" cy="35" r="15" fill="#f44336"/><path d="M 20 20 Q 25 15 30 20" fill="none" stroke="#4caf50" stroke-width="3"/>
+                    <circle cx="50" cy="25" r="15" fill="#e53935"/><path d="M 50 10 Q 55 5 60 10" fill="none" stroke="#4caf50" stroke-width="3"/>
+                    <circle cx="80" cy="35" r="15" fill="#d32f2f"/><path d="M 80 20 Q 85 15 90 20" fill="none" stroke="#4caf50" stroke-width="3"/>
+                    <circle cx="35" cy="40" r="15" fill="#ef5350"/><path d="M 35 25 Q 40 20 45 25" fill="none" stroke="#4caf50" stroke-width="3"/>
+                    <circle cx="65" cy="40" r="15" fill="#f44336"/><path d="M 65 25 Q 70 20 75 25" fill="none" stroke="#4caf50" stroke-width="3"/>
+                    <!-- Сама корзина -->
+                    <path d="M 10 40 L 90 40 L 75 80 L 25 80 Z" fill="#d7ccc8" stroke="#8d6e63" stroke-width="4"/>
+                    <path d="M 10 40 L 90 40" fill="none" stroke="#795548" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M 25 40 L 35 80 M 45 40 L 50 80 M 65 40 L 60 80 M 80 40 L 70 80" fill="none" stroke="#bcaaa4" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+
+        <div id="win-message-apple" class="win-message">
+            <h2 style="color: #ffeb3b; text-shadow: 2px 2px 4px #000;">Дерево в яблоках! 🍎</h2>
+            <button class="btn btn-apple" onclick="endGame()">Меню</button>
+        </div>
+    </div>
+
     <script>
         const dictionary = {
             'А': '🍉', 'Б': '🍌', 'В': '🚁', 'Г': '🍄', 'Д': '🏠', 'Е': '🦝', 'Ё': '🦔', 'Ж': '🦒', 'З': '☂️',
@@ -426,13 +615,15 @@
             'flashlight': document.getElementById('game-screen'),
             'stars': document.getElementById('stars-screen'),
             'flies': document.getElementById('flies-screen'),
-            'air': document.getElementById('air-flies-screen')
+            'air': document.getElementById('air-flies-screen'),
+            'apple': document.getElementById('apple-screen') // Добавили экран яблони
         };
         const wins = {
             'flashlight': document.getElementById('win-message-flashlight'),
             'stars': document.getElementById('win-message-stars'),
             'flies': document.getElementById('win-message-flies'),
-            'air': document.getElementById('win-message-air')
+            'air': document.getElementById('win-message-air'),
+            'apple': document.getElementById('win-message-apple') // Победа яблони
         };
 
         // Исправленная главная функция, которая включает и выключает экраны
@@ -459,6 +650,7 @@
             else if (mode === 'stars') initStars();
             else if (mode === 'flies') initFlies();
             else if (mode === 'air') initAirFlies();
+            else if (mode === 'apple') initAppleTree(); // Инициализация яблони
         }
 
         function endGame() {
@@ -477,10 +669,120 @@
             }
         }
 
-        // ================= МЕХАНИКА: НОВЫЕ ВОЗДУШНЫЕ МУШКИ (РАМКА) =================
+        // ================= 5. ЯБЛОНЯ =================
+        let appleTreeLetters = [];
+        let appleTotalSlots = 19; 
+        let applesCovered = 0;
+        let activeDiceLetter = '';
+
+        function initAppleTree() {
+            applesCovered = 0;
+            activeDiceLetter = '';
+            document.getElementById('apple-dice').innerText = '?';
+            
+            const container = document.getElementById('tree-letters-container');
+            container.innerHTML = '';
+            
+            appleTreeLetters = [];
+            for (let i = 0; i < appleTotalSlots; i++) {
+                appleTreeLetters.push(playLetters[i % playLetters.length]);
+            }
+            appleTreeLetters.sort(() => Math.random() - 0.5);
+
+            // 19 Идеально выверенных позиций внутри НОВОЙ СВЕРХШИРОКОЙ кроны
+            // Координаты в процентах от #tree-letters-container
+            const positions = [
+                {t: 15, l: 40}, {t: 15, l: 60},
+                {t: 30, l: 20}, {t: 30, l: 35}, {t: 30, l: 50}, {t: 30, l: 65}, {t: 30, l: 80},
+                {t: 50, l: 15}, {t: 48, l: 28}, {t: 48, l: 42}, {t: 48, l: 58}, {t: 48, l: 72}, {t: 50, l: 85},
+                {t: 65, l: 25}, {t: 65, l: 40}, {t: 65, l: 60}, {t: 65, l: 75},
+                {t: 80, l: 40}, {t: 80, l: 60}
+            ];
+
+            appleTreeLetters.forEach((letter, index) => {
+                const pos = positions[index];
+                if (!pos) return;
+
+                const slot = document.createElement('div');
+                slot.className = 'tree-letter-slot';
+                slot.style.top = pos.t + '%';
+                slot.style.left = pos.l + '%';
+                
+                // Милое нарисованное яблочко с бликом и листиком
+                slot.innerHTML = `
+                    <span class="letter-text">${letter}</span>
+                    <svg class="apple-covered-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="transform: translate(-50%, -50%); top: 50%; left: 50%;">
+                        <circle cx="50" cy="55" r="40" fill="#e53935"/>
+                        <!-- Блик -->
+                        <path d="M 30 45 Q 25 60 40 75" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="6" stroke-linecap="round"/>
+                        <!-- Листик -->
+                        <path d="M 50 15 Q 60 5 70 15 Q 75 25 65 35 Q 55 25 50 15 Z" fill="#8bc34a"/>
+                        <!-- Веточка -->
+                        <path d="M 50 25 Q 50 15 55 5" fill="none" stroke="#5d4037" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                `;
+
+                slot.onclick = function() {
+                    if (slot.classList.contains('covered')) return;
+                    
+                    if (activeDiceLetter === '?' || activeDiceLetter === '' || activeDiceLetter === letter) {
+                        slot.classList.add('covered');
+                        audio.play('slurp');
+                        applesCovered++;
+                        checkAppleWin();
+                    } else {
+                        audio.play('error');
+                        slot.style.transform = 'rotate(15deg) scale(1.1)';
+                        setTimeout(() => slot.style.transform = '', 200);
+                    }
+                };
+                container.appendChild(slot);
+            });
+        }
+
+        function rollAppleDice() {
+            const dice = document.getElementById('apple-dice');
+            if (dice.classList.contains('dice-animating')) return;
+
+            audio.play('click');
+            dice.classList.add('dice-animating');
+            
+            let rollInterval = setInterval(() => {
+                dice.innerText = playLetters[Math.floor(Math.random() * playLetters.length)];
+            }, 50);
+
+            setTimeout(() => {
+                clearInterval(rollInterval);
+                dice.classList.remove('dice-animating');
+                
+                const uncoveredSlots = document.querySelectorAll('.tree-letter-slot:not(.covered) .letter-text');
+                if (uncoveredSlots.length > 0) {
+                    const remainingLetters = Array.from(uncoveredSlots).map(el => el.innerText);
+                    activeDiceLetter = remainingLetters[Math.floor(Math.random() * remainingLetters.length)];
+                    dice.innerText = activeDiceLetter;
+                    audio.play('magic');
+                }
+            }, 500);
+        }
+
+        function checkAppleWin() {
+            if (applesCovered >= appleTotalSlots) {
+                setTimeout(() => {
+                    audio.playWin();
+                    document.getElementById('win-message-apple').style.display = 'block';
+                }, 800);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('apple-dice').innerText = '?';
+                    activeDiceLetter = '?';
+                }, 1000);
+            }
+        }
+
+        // ================= 2. МЕХАНИКА: ВОЗДУШНЫЕ МУШКИ (РАМКА) =================
         let airCurrentIdx = 0;
-        let airFliesToCatch = 0;
         let airFliesCaught = 0;
+        let airFliesToCatch = 3;
 
         function initAirFlies() {
             airCurrentIdx = 0;
@@ -491,58 +793,39 @@
             if (airCurrentIdx >= playLetters.length) { checkWin(1, 1); return; }
             
             const targetLetter = playLetters[airCurrentIdx];
-            
-            // Ставим букву в красную рамку наверху
-            document.getElementById('air-target-letter').textContent = targetLetter;
+            document.getElementById('air-target-letter').innerText = targetLetter;
             
             const container = document.getElementById('air-flies-container');
             container.innerHTML = '';
-
-            airFliesToCatch = 3 + Math.floor(Math.random() * 2); // 3-4 правильные мухи
+            
             airFliesCaught = 0;
+            airFliesToCatch = 3 + Math.floor(Math.random() * 2);
 
-            /* Создаем 6 независимых дорожек, чтобы мухи не сталкивались */
-            const lanesCount = 6; 
-            const totalFlies = lanesCount; 
-            
+            const totalFlies = 8;
             const allAlphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ".split('');
-            let levelLetters = [];
+            let levelLetters = Array(airFliesToCatch).fill(targetLetter);
             
-            // Заполняем правильными буквами
-            for(let i = 0; i < airFliesToCatch; i++) {
-                levelLetters.push(targetLetter);
-            }
-            
-            // Добиваем остальные дорожки неправильными буквами
             while(levelLetters.length < totalFlies) {
                 let randomLet = allAlphabet[Math.floor(Math.random()*allAlphabet.length)];
                 if(randomLet !== targetLetter) levelLetters.push(randomLet);
             }
-            levelLetters.sort(() => Math.random() - 0.5); // Перемешиваем по дорожкам
-
-            // Вычисляем ширину одной дорожки (в процентах)
-            const laneWidth = 100 / lanesCount;
+            levelLetters.sort(() => Math.random() - 0.5);
 
             levelLetters.forEach((letter, index) => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'air-fly-wrapper';
+                const flyWrapper = document.createElement('div');
+                flyWrapper.className = 'air-fly-wrapper';
                 
-                // Ставим муху строго по центру её личной дорожки
-                const laneCenter = (index * laneWidth) + (laneWidth / 2);
-                wrapper.style.left = `calc(${laneCenter}% - 65px)`; 
+                const lane = index % 6;
+                const laneWidth = 100 / 6;
+                const leftPos = (lane * laneWidth) + (Math.random() * (laneWidth / 2));
                 
-                // Рандомная скорость (СДЕЛАЛИ СИЛЬНО МЕДЛЕННЕЕ) и задержка старта
-                const duration = 12 + Math.random() * 8; // Полет будет занимать от 12 до 20 секунд
-                const delay = -(Math.random() * 12); 
+                flyWrapper.style.left = leftPos + '%';
+                flyWrapper.style.animation = `flyUpwards ${12 + Math.random() * 8}s linear infinite`;
+                flyWrapper.style.animationDelay = `-${Math.random() * 10}s`;
 
-                // Запускаем бесконечную анимацию полета вверх
-                wrapper.style.animation = `flyUpwards ${duration}s linear infinite`;
-                wrapper.style.animationDelay = `${delay}s`;
-
-                const inner = document.createElement('div');
-                inner.className = 'air-fly-inner';
-                
-                inner.innerHTML = `
+                const flyInner = document.createElement('div');
+                flyInner.className = 'air-fly-inner';
+                flyInner.innerHTML = `
                     <svg viewBox="0 0 100 100" class="air-fly-svg">
                         <path d="M50 45 Q 10 0 5 30 Q 25 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
                         <path d="M50 45 Q 90 0 95 30 Q 75 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
@@ -555,36 +838,28 @@
                     </svg>
                 `;
 
-                inner.onclick = function() {
-                    if (inner.classList.contains('caught')) return;
-
+                flyInner.onclick = function() {
+                    if (flyInner.classList.contains('caught')) return;
                     if (letter === targetLetter) {
-                        inner.classList.add('caught');
-                        audio.play('magic'); // Волшебный звук
-                        
-                        // Останавливаем полет этой мухи (застывает на месте и исчезает)
-                        wrapper.style.animationPlayState = 'paused';
-                        
+                        audio.play('magic');
+                        flyInner.classList.add('caught');
                         airFliesCaught++;
                         if (airFliesCaught >= airFliesToCatch) {
-                            setTimeout(() => {
-                                airCurrentIdx++;
-                                renderAirFliesLevel();
-                            }, 800);
+                            setTimeout(() => { airCurrentIdx++; renderAirFliesLevel(); }, 800);
                         }
                     } else {
                         audio.play('error');
-                        inner.style.filter = 'grayscale(1) opacity(0.5)';
-                        setTimeout(() => inner.style.filter = '', 200);
+                        flyInner.style.filter = 'grayscale(1) opacity(0.5)';
+                        setTimeout(() => flyInner.style.filter = '', 200);
                     }
                 };
-                
-                wrapper.appendChild(inner);
-                container.appendChild(wrapper);
+
+                flyWrapper.appendChild(flyInner);
+                container.appendChild(flyWrapper);
             });
         }
 
-        // ================= МЕХАНИКА: ЛЯГУШКА И МУХИ (В ЦЕНТРЕ) =================
+        // ================= 3. МЕХАНИКА: ЛЯГУШКА И МУХИ (центр) =================
         let fliesCurrentIdx = 0;
         let fliesToCatch = 0;
         let fliesCaught = 0;
@@ -643,8 +918,8 @@
                 posY = Math.max(25, Math.min(80, posY));
 
                 fly.style.left = posX + '%'; fly.style.top = posY + '%';
-                fly.style.transform = `translate(-50%, -50%)`;
-                fly.style.animationDelay = `-${Math.random()*4}s`; fly.style.animationDuration = `${2.5 + Math.random()*2}s`;
+                fly.style.animationDelay = `-${Math.random()*4}s`; 
+                fly.style.animationDuration = `${2.5 + Math.random()*2}s`;
 
                 fly.onclick = function(e) {
                     if (fly.classList.contains('caught')) return;
