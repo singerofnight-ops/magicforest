@@ -32,14 +32,14 @@
         .setup-box {
             background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
             padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            max-width: 600px; width: 100%;
+            max-width: 700px; width: 100%;
         }
 
-        h1 { font-size: 2.2rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        p { font-size: 1.1rem; margin-bottom: 20px; color: #ddd; }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        p { font-size: 1.2rem; margin-bottom: 20px; color: #ddd; }
 
         input[type="text"] {
-            width: 90%; padding: 15px; font-size: 1.5rem; border: 3px solid var(--primary);
+            width: 90%; padding: 15px; font-size: 1.8rem; border: 3px solid var(--primary);
             border-radius: 15px; outline: none; text-align: center; text-transform: uppercase;
             font-family: 'Nunito', sans-serif; font-weight: bold; color: #333; margin-bottom: 20px;
         }
@@ -58,12 +58,13 @@
         .btn-star { background-color: #673ab7; }
         .btn-frog1 { background-color: #4caf50; }
         .btn-air { background-color: #03a9f4; color: white; }
-        .btn-apple { background-color: #e53935; color: white; } /* Кнопка для Яблони */
+        .btn-apple { background-color: #e53935; color: white; } 
+        .btn-bear { background-color: #8d6e63; color: white; }
 
         .back-btn {
             position: absolute; top: 20px; left: 20px; z-index: 50;
             background: rgba(255,255,255,0.2); color: white; border: 2px solid white;
-            padding: 10px 20px; border-radius: 20px; font-size: 1rem; font-weight: bold;
+            padding: 10px 20px; border-radius: 20px; font-size: 1.2rem; font-weight: bold;
             cursor: pointer; backdrop-filter: blur(5px);
         }
         .back-btn:hover { background: rgba(255,255,255,0.4); }
@@ -82,11 +83,11 @@
         }
         #items-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; }
         .game-item {
-            position: absolute; font-size: 5rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            position: absolute; font-size: 6rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.5);
             cursor: pointer; user-select: none; transition: all 0.5s; display: flex; align-items: center; justify-content: center;
             transform: translate(-50%, -50%);
         }
-        .game-item.found { font-size: 6rem; color: #ffeb3b; z-index: 20; transform: translate(-50%, -50%) scale(1.2) rotate(0deg) !important; }
+        .game-item.found { font-size: 8rem; color: #ffeb3b; z-index: 20; transform: translate(-50%, -50%) scale(1.2) rotate(0deg) !important; }
         #flashlight-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 15; pointer-events: none;
             background: radial-gradient(circle at 50% 50%, transparent 80px, rgba(5, 10, 15, 0.98) 180px);
@@ -105,13 +106,13 @@
         }
         #stars-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; }
         .star-item {
-            position: absolute; cursor: pointer; width: 120px; height: 120px; display: flex;
+            position: absolute; cursor: pointer; width: 150px; height: 150px; display: flex;
             align-items: center; justify-content: center; transform: translate(-50%, -50%); transition: transform 0.2s;
         }
         .star-item:hover { transform: translate(-50%, -50%) scale(1.1) !important; }
         .star-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
         .star-letter {
-            position: absolute; font-size: 3.5rem; font-weight: 900; color: #b71c1c;
+            position: absolute; font-size: 4.5rem; font-weight: 900; color: #b71c1c;
             text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff; pointer-events: none;
         }
         .star-item.falling { animation: fallDown 1.5s forwards; pointer-events: none; }
@@ -124,7 +125,7 @@
         }
         .frog-center {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; z-index: 20; 
+            width: 320px; height: 320px; display: flex; align-items: center; justify-content: center; z-index: 20; 
         }
         .cute-frog-svg {
             width: 100%; height: 100%; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
@@ -134,11 +135,11 @@
         
         .frog-belly-letter {
             position: absolute; top: 62%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 4.5rem; font-weight: 900; color: #1b5e20; z-index: 25; pointer-events: none;
+            font-size: 5.5rem; font-weight: 900; color: #1b5e20; z-index: 25; pointer-events: none;
         }
         #flies-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 30; }
         .fly-item {
-            position: absolute; width: 140px; height: 140px; cursor: pointer;
+            position: absolute; width: 160px; height: 160px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             transition: filter 0.2s; animation: flyFloat 3s infinite ease-in-out alternate; transform-origin: center;
         }
@@ -149,83 +150,35 @@
             100% { transform: translate(-50%, calc(-50% - 15px)) rotate(5deg); }
         }
         .frog-tongue {
-            position: absolute; background-color: #ff5252; height: 12px; border-radius: 6px;
+            position: absolute; background-color: #ff5252; height: 16px; border-radius: 8px;
             transform-origin: left center; z-index: 40; display: none; box-shadow: 0 5px 5px rgba(0,0,0,0.2);
         }
 
-        /* ================= 4. ВОЗДУШНЫЕ МУШКИ (С КРАСНОЙ РАМКОЙ) ================= */
+        /* ================= 4. ВОЗДУШНЫЕ МУШКИ (РАМКА) ================= */
         #air-flies-screen {
             display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            /* Нежное голубое акварельное небо */
-            background: linear-gradient(to bottom, #bbdefb 0%, #e1f5fe 50%, #f1f8e9 100%);
-            overflow: hidden;
+            background: linear-gradient(to bottom, #bbdefb 0%, #e1f5fe 50%, #f1f8e9 100%); overflow: hidden;
         }
-
-        /* --- ДЕКОРАЦИИ ФОНА (Облака и Ветка) --- */
-        .air-decorations {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1; /* Самый нижний слой, под мухами */
-        }
-
-        .cute-cloud {
-            position: absolute; fill: rgba(255, 255, 255, 0.9);
-            filter: drop-shadow(0 10px 15px rgba(0,150,255,0.1));
-        }
-        .cloud-1 { top: 15%; left: -10%; width: 200px; animation: floatCloud 25s linear infinite alternate; }
-        .cloud-2 { top: 45%; right: -5%; width: 150px; animation: floatCloud 35s linear infinite alternate-reverse; }
-        .cloud-3 { top: 75%; left: 10%; width: 120px; animation: floatCloud 20s linear infinite alternate; opacity: 0.7; }
+        .air-decorations { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .cute-cloud { position: absolute; fill: rgba(255, 255, 255, 0.9); filter: drop-shadow(0 10px 15px rgba(0,150,255,0.1)); }
+        .cloud-1 { top: 15%; left: -10%; width: 250px; animation: floatCloud 25s linear infinite alternate; }
+        .cloud-2 { top: 45%; right: -5%; width: 180px; animation: floatCloud 35s linear infinite alternate-reverse; }
+        .cloud-3 { top: 75%; left: 10%; width: 150px; animation: floatCloud 20s linear infinite alternate; opacity: 0.7; }
+        @keyframes floatCloud { 0% { transform: translateX(0); } 100% { transform: translateX(50px); } }
+        .cute-branch { position: absolute; top: -20px; right: -20px; width: 320px; transform-origin: top right; animation: swayBranch 6s ease-in-out infinite alternate; filter: drop-shadow(-5px 10px 10px rgba(0,0,0,0.15)); }
+        @keyframes swayBranch { 0% { transform: rotate(0deg); } 100% { transform: rotate(4deg); } }
         
-        @keyframes floatCloud {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(50px); }
-        }
-
-        .cute-branch {
-            position: absolute; top: -20px; right: -20px; width: 280px;
-            transform-origin: top right;
-            animation: swayBranch 6s ease-in-out infinite alternate;
-            filter: drop-shadow(-5px 10px 10px rgba(0,0,0,0.15));
-        }
-
-        @keyframes swayBranch {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(4deg); }
-        }
-
-        /* Красная рамка с образцом буквы сверху */
         #air-target-box {
             position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 140px; height: 140px; border: 8px solid #ff0000;
-            background-color: white; border-radius: 12px;
-            display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 20;
+            width: 160px; height: 160px; border: 10px solid #ff0000; background-color: white; border-radius: 15px;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 20;
         }
-
-        /* Шрифт с засечками как на референсе */
-        #air-target-letter {
-            font-size: 6rem; font-weight: bold; color: #333;
-            font-family: 'Times New Roman', Times, serif; 
-        }
-
-        /* Скрываем всё, что вылетает за края экрана */
+        #air-target-letter { font-size: 7rem; font-weight: bold; color: #333; font-family: 'Times New Roman', Times, serif; }
         #air-flies-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; overflow: hidden; }
-
-        /* Обертка для мухи (отвечает за движение снизу вверх) */
-        .air-fly-wrapper {
-            position: absolute; width: 130px; height: 130px; z-index: 10;
-        }
-
-        /* Внутренний блок мухи (отвечает за клики и анимацию исчезновения) */
-        .air-fly-inner {
-            width: 100%; height: 100%; cursor: pointer; transition: transform 0.2s;
-        }
+        .air-fly-wrapper { position: absolute; width: 160px; height: 160px; z-index: 10; }
+        .air-fly-inner { width: 100%; height: 100%; cursor: pointer; transition: transform 0.2s; }
         .air-fly-inner:hover { transform: scale(1.15) !important; }
-        
-        .air-fly-svg {
-            width: 100%; height: 100%; filter: drop-shadow(0 5px 8px rgba(0,0,0,0.2));
-        }
-
-        /* АНИМАЦИЯ: бесконечный полет снизу вверх с легким зигзагом */
+        .air-fly-svg { width: 100%; height: 100%; filter: drop-shadow(0 5px 8px rgba(0,0,0,0.2)); }
         @keyframes flyUpwards {
             0% { top: 110%; transform: translateX(-20px) rotate(-10deg); }
             25% { transform: translateX(20px) rotate(10deg); }
@@ -233,136 +186,124 @@
             75% { transform: translateX(20px) rotate(10deg); }
             100% { top: -30%; transform: translateX(-20px) rotate(-10deg); }
         }
-
-        /* Анимация пойманной мушки (магическое исчезновение) */
-        .air-fly-inner.caught {
-            transition: all 0.4s ease-out;
-            transform: scale(1.5) rotate(360deg) !important;
-            opacity: 0;
-            filter: brightness(2) drop-shadow(0 0 20px yellow);
-            pointer-events: none;
-        }
+        .air-fly-inner.caught { transition: all 0.4s ease-out; transform: scale(1.5) rotate(360deg) !important; opacity: 0; filter: brightness(2) drop-shadow(0 0 20px yellow); pointer-events: none; }
 
         /* ================= 5. ЯБЛОНЯ ================= */
         #apple-screen {
             display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, #bbdefb 0%, #e1f5fe 60%, #c8e6c9 60%, #aed581 100%);
-            overflow: hidden;
+            background: linear-gradient(to bottom, #bbdefb 0%, #e1f5fe 60%, #c8e6c9 60%, #aed581 100%); overflow: hidden;
         }
-
         .apple-tree-container {
             position: absolute; top: 5%; left: 50%; transform: translateX(-50%);
-            width: 90vw; max-width: 600px; height: 70vh; 
-            display: flex; align-items: flex-end; justify-content: center;
+            width: 90vw; max-width: 700px; height: 75vh; display: flex; align-items: flex-end; justify-content: center;
         }
-
-        .apple-tree-svg {
-            width: 100%; height: 100%; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.15));
-            overflow: visible;
-        }
-
-        /* Контейнер для слотов, жестко привязанный к SVG-дереву */
-        #tree-letters-container {
-            position: absolute; 
-            /* Эти проценты соответствуют области кроны внутри SVG (от 0 до 800) */
-            top: 5%; left: 5%; width: 90%; height: 80%; 
-            z-index: 10;
-        }
-
+        .apple-tree-svg { width: 100%; height: 100%; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.15)); overflow: visible; }
+        #tree-letters-container { position: absolute; top: 0; left: 0; width: 100%; height: 85%; z-index: 10; }
         .tree-letter-slot {
-            position: absolute; width: 50px; height: 50px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.2rem; font-weight: 900; color: #1b5e20; font-family: 'Comic Sans MS', 'Nunito', cursive;
-            cursor: pointer; transition: transform 0.2s; user-select: none;
-            background: rgba(255,255,255,0.01); border-radius: 50%;
-            transform: translate(-50%, -50%); /* Центрируем слот по координате */
+            position: absolute; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+            font-size: 2.8rem; font-weight: 900; color: #1b5e20; font-family: 'Comic Sans MS', 'Nunito', cursive;
+            cursor: pointer; transition: transform 0.2s; user-select: none; background: rgba(255,255,255,0.01); border-radius: 50%;
+            transform: translate(-50%, -50%);
         }
-
         .tree-letter-slot:hover { transform: translate(-50%, -50%) scale(1.1); }
-
-        .tree-letter-slot.covered {
-            color: transparent; pointer-events: none;
-        }
-
+        .tree-letter-slot.covered { color: transparent; pointer-events: none; }
         .apple-covered-img {
-            position: absolute; width: 150%; height: 150%; 
-            display: none; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+            position: absolute; width: 160%; height: 160%; display: none; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
             animation: popApple 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
         .tree-letter-slot.covered .apple-covered-img { display: block; }
-
         @keyframes popApple { 0% { transform: translate(-50%, -50%) scale(0); } 100% { transform: translate(-50%, -50%) scale(1); } }
-
-        /* Игровая панель внизу (кубик и корзина) */
         .apple-bottom-panel {
             position: absolute; bottom: 2%; left: 0; width: 100%; height: 18vh;
-            display: flex; justify-content: space-around; align-items: flex-end; padding: 0 5vw; box-sizing: border-box;
-            z-index: 20;
+            display: flex; justify-content: space-around; align-items: flex-end; padding: 0 5vw; box-sizing: border-box; z-index: 20;
         }
-
-        .basket-container {
-            width: 150px; position: relative;
-        }
-
+        .basket-container { width: 180px; position: relative; }
         .basket-svg { width: 100%; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2)); }
-
-        .dice-container {
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-        }
-
+        .dice-container { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .apple-dice {
-            width: 80px; height: 80px; background: #ff7043; border-radius: 20px;
-            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.2), 0 10px 15px rgba(0,0,0,0.2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3.5rem; font-weight: bold; color: white; cursor: pointer;
+            width: 100px; height: 100px; background: #ff7043; border-radius: 20px; box-shadow: inset -5px -5px 15px rgba(0,0,0,0.2), 0 10px 15px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center; font-size: 4.5rem; font-weight: bold; color: white; cursor: pointer;
             text-shadow: 2px 2px 0 #d84315; border: 4px solid #d84315; transition: transform 0.1s;
         }
-
         .apple-dice:active { transform: translateY(5px); box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.2); }
-
         .dice-animating { animation: rollDice 0.5s ease; }
-        @keyframes rollDice {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        /* Кнопка печати */
+        @keyframes rollDice { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.2); } 100% { transform: rotate(360deg) scale(1); } }
         .print-btn {
-            position: absolute; top: 20px; right: 20px; z-index: 50;
-            background: white; color: #333; border: 2px solid #333; padding: 10px 20px; border-radius: 20px;
-            font-size: 1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: absolute; top: 20px; right: 20px; z-index: 50; background: white; color: #333; border: 2px solid #333; padding: 10px 20px; border-radius: 20px;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .print-btn:hover { background: #f0f0f0; }
 
-        /* --- СТИЛИ ДЛЯ ПЕЧАТИ --- */
         @media print {
             body * { visibility: hidden; }
             #apple-screen, #apple-screen * { visibility: visible; }
-            
-            #apple-screen {
-                position: absolute; left: 0; top: 0; width: 100vw; height: 100vh;
-                background: white; overflow: visible; display: flex; align-items: center; justify-content: center;
-            }
-
-            .apple-tree-container {
-                position: static; transform: none; width: 100%; height: 90vh; max-width: none;
-            }
-
-            /* Делаем дерево черно-белым (контурным) */
+            #apple-screen { position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; background: white; overflow: visible; display: flex; align-items: center; justify-content: center; }
+            .apple-tree-container { position: static; transform: none; width: 100%; height: 90vh; max-width: none; }
             .apple-tree-svg .tree-crown, .apple-tree-svg .tree-trunk { fill: white !important; stroke: black !important; stroke-width: 6px !important; }
             .apple-tree-svg .tree-branch { stroke: black !important; }
-            .apple-tree-svg .tree-crown-highlight { display: none !important; } /* Прячем блики */
-            
-            /* Буквы делаем черными */
-            .tree-letter-slot { color: black !important; font-size: 2.5rem; }
-            
-            /* Прячем яблоки, корзину, кубик, траву и кнопки */
+            .apple-tree-svg .tree-crown-highlight { display: none !important; } 
+            .tree-letter-slot { color: black !important; font-size: 3rem; }
             .apple-covered-img, .apple-bottom-panel, .apple-grass-bg, .back-btn, .print-btn, .win-message { display: none !important; }
         }
 
+        /* ================= 6. КОРЗИНКА ДЛЯ МИШКИ ================= */
+        #bear-screen {
+            display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, #b2ebf2 0%, #e0f7fa 40%, #c5e1a5 40%, #81c784 100%);
+            overflow: hidden;
+        }
+        .bear-hills {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background-image:
+                radial-gradient(ellipse at 20% 100%, #aed581 50%, transparent 50.5%),
+                radial-gradient(ellipse at 80% 100%, #9ccc65 50%, transparent 50.5%),
+                radial-gradient(ellipse at 50% 120%, #7cb342 60%, transparent 60.5%);
+            z-index: 1; pointer-events: none;
+        }
+        .bear-container {
+            position: absolute; bottom: 2%; left: 50%; transform: translateX(-50%);
+            width: 450px; height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+            z-index: 20;
+        }
+        .bear-svg { width: 350px; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2)); }
+        
+        .bear-basket-wrapper {
+            position: absolute; bottom: -20px; width: 280px; z-index: 25;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+        }
+        .bear-basket-svg { width: 100%; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3)); }
+        .basket-target-label {
+            position: absolute; top: 35%; font-size: 5.5rem; font-weight: 900; color: #4e342e;
+            background: rgba(255,255,255,0.9); padding: 0 15px; border-radius: 10px; border: 3px solid #6d4c41;
+            font-family: 'Nunito', sans-serif;
+        }
+        #bear-items-field {
+            position: absolute; top: 5%; left: 5%; width: 90%; height: 50%;
+            z-index: 10;
+        }
+        .bear-item {
+            position: absolute; display: flex; align-items: center; justify-content: center;
+            width: 120px; height: 120px; cursor: pointer; font-size: 6.5rem; font-weight: bold;
+            color: #1a237e; text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff, 0 8px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s; user-select: none;
+            animation: floatBearItem 3s infinite ease-in-out alternate;
+        }
+        @keyframes floatBearItem {
+            0% { transform: translateY(0px) rotate(-5deg); }
+            100% { transform: translateY(-10px) rotate(5deg); }
+        }
+        .bear-item:hover { transform: scale(1.15) !important; filter: brightness(1.2); }
+        .mirrored-letter { display: inline-block; transform: scaleX(-1); }
+        @keyframes wrongBounce {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-15px) rotate(-15deg); }
+            75% { transform: translateX(15px) rotate(15deg); }
+        }
+        .shake-anim { animation: wrongBounce 0.4s ease !important; }
+        .flying-to-basket {
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            opacity: 0 !important; pointer-events: none; animation: none !important;
+        }
     </style>
 </head>
 <body>
@@ -378,8 +319,9 @@
                 <button class="btn" onclick="startGame('flashlight')">🔦 Фонарик</button>
                 <button class="btn btn-star" onclick="startGame('stars')">⭐ Звездопад</button>
                 <button class="btn btn-frog1" onclick="startGame('flies')">🐸 Лягушка</button>
-                <button class="btn btn-air" onclick="startGame('air')">🪰 Ловить мух (Рамка)</button>
-                <button class="btn btn-apple" onclick="startGame('apple')">🍎 Яблоня (Игра + Печать)</button>
+                <button class="btn btn-air" onclick="startGame('air')">🪰 Воздушные мухи</button>
+                <button class="btn btn-apple" onclick="startGame('apple')">🍎 Яблоня (Печать)</button>
+                <button class="btn btn-bear" onclick="startGame('bear')">🐻 Корзинка Мишки</button>
             </div>
         </div>
     </div>
@@ -404,7 +346,6 @@
     <!-- 3. ЛОБИТЬ МУХ (С ЛЯГУШКОЙ В ЦЕНТРЕ) -->
     <div id="flies-screen">
         <button class="back-btn" onclick="endGame()">🚪 Выйти</button>
-        
         <div class="frog-center" id="flies-frog">
             <svg viewBox="0 0 200 200" class="cute-frog-svg">
                 <path d="M10 160 Q 100 120 190 160 Q 100 200 10 160" fill="#4caf50"/>
@@ -425,7 +366,6 @@
             <div class="frog-belly-letter" id="frog-belly-target">А</div>
         </div>
         <div class="frog-tongue" id="frog-tongue"></div>
-
         <div id="flies-container"></div>
         <div id="win-message-flies" class="win-message"><h2>Лягушка сыта! 🪰🐸</h2><button class="btn btn-frog1" onclick="endGame()">Меню</button></div>
     </div>
@@ -433,129 +373,137 @@
     <!-- 4. ВОЗДУШНЫЕ МУШКИ (ИГРА С КРАСНОЙ РАМКОЙ) -->
     <div id="air-flies-screen">
         <button class="back-btn" onclick="endGame()" style="color: #333; border-color: #333; z-index: 50;">🚪 Выйти</button>
-        
-        <!-- Красивый фон с облаками и веточкой -->
         <div class="air-decorations">
-            <!-- Облако 1 -->
-            <svg class="cute-cloud cloud-1" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/>
-            </svg>
-            <!-- Облако 2 -->
-            <svg class="cute-cloud cloud-2" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/>
-            </svg>
-            <!-- Облако 3 -->
-            <svg class="cute-cloud cloud-3" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/>
-            </svg>
-            
-            <!-- Свисающая веточка справа -->
+            <svg class="cute-cloud cloud-1" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg"><path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/></svg>
+            <svg class="cute-cloud cloud-2" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg"><path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/></svg>
+            <svg class="cute-cloud cloud-3" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg"><path d="M 20 40 Q 10 40 10 30 Q 10 15 25 20 Q 30 5 45 10 Q 55 -5 70 10 Q 85 10 90 25 Q 100 30 90 40 Z"/></svg>
             <svg class="cute-branch" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
-                <!-- Ветка -->
                 <path d="M 220 -20 Q 120 100 30 180" fill="none" stroke="#795548" stroke-width="12" stroke-linecap="round"/>
                 <path d="M 140 60 Q 90 140 80 180" fill="none" stroke="#795548" stroke-width="8" stroke-linecap="round"/>
-                <!-- Листики -->
                 <path d="M 30 180 Q 0 190 10 210 Q 40 210 30 180" fill="#aed581"/>
                 <path d="M 80 180 Q 50 190 60 210 Q 90 200 80 180" fill="#8bc34a"/>
                 <path d="M 140 60 Q 120 30 90 40 Q 110 70 140 60" fill="#8bc34a"/>
                 <path d="M 100 120 Q 70 100 50 120 Q 80 140 100 120" fill="#aed581"/>
                 <path d="M 180 30 Q 160 0 130 10 Q 150 40 180 30" fill="#aed581"/>
-                <!-- Розовый цветочек -->
-                <circle cx="95" cy="115" r="8" fill="#ff4081"/>
-                <circle cx="108" cy="115" r="8" fill="#ff4081"/>
-                <circle cx="102" cy="105" r="8" fill="#ff4081"/>
-                <circle cx="102" cy="125" r="8" fill="#ff4081"/>
-                <circle cx="102" cy="115" r="5" fill="#ffeb3b"/>
+                <circle cx="95" cy="115" r="8" fill="#ff4081"/><circle cx="108" cy="115" r="8" fill="#ff4081"/>
+                <circle cx="102" cy="105" r="8" fill="#ff4081"/><circle cx="102" cy="125" r="8" fill="#ff4081"/><circle cx="102" cy="115" r="5" fill="#ffeb3b"/>
             </svg>
         </div>
-
-        <!-- Красная рамка с образцом буквы -->
-        <div id="air-target-box">
-            <span id="air-target-letter">А</span>
-        </div>
-        
-        <!-- Контейнер для мушек -->
+        <div id="air-target-box"><span id="air-target-letter">А</span></div>
         <div id="air-flies-container"></div>
-        
-        <div id="win-message-air" class="win-message">
-            <h2 style="color: #ffeb3b; text-shadow: 2px 2px 4px #000;">Все мушки пойманы! 🪰✨</h2>
-            <button class="btn btn-air" onclick="endGame()">Меню</button>
-        </div>
+        <div id="win-message-air" class="win-message"><h2 style="color: #ffeb3b; text-shadow: 2px 2px 4px #000;">Все мушки пойманы! 🪰✨</h2><button class="btn btn-air" onclick="endGame()">Меню</button></div>
     </div>
 
     <!-- 5. ЯБЛОНЯ -->
     <div id="apple-screen">
         <button class="back-btn" onclick="endGame()" style="color: #333; border-color: #333; z-index: 50;">🚪 Выйти</button>
         <button class="print-btn" onclick="window.print()">🖨️ Напечатать ч/б</button>
-        
-        <!-- Красивая трава на фоне -->
         <div class="apple-grass-bg" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 14vh; background: #8bc34a; border-top-left-radius: 50% 20px; border-top-right-radius: 50% 20px; z-index: 5;"></div>
-
         <div class="apple-tree-container">
-            <!-- Векторное гигантское дерево (СУПЕР-КРОНА) -->
             <svg class="apple-tree-svg" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
-                <!-- Ствол -->
                 <path class="tree-trunk" d="M 430 800 Q 480 500 480 350 L 520 350 Q 520 500 570 800 Z" fill="#795548"/>
-                <!-- Ветки -->
                 <path class="tree-branch" d="M 480 400 Q 400 300 320 280 M 520 400 Q 600 300 680 280 M 500 350 L 500 200" fill="none" stroke="#795548" stroke-width="20" stroke-linecap="round"/>
-                
-                <!-- Крона (ЕЩЕ ШИРЕ, чтобы влезли все буквы) -->
-                <!-- Центр: (500, 300), Ширина: ~900 -->
-                <path class="tree-crown" d="
-                    M 350 600 
-                    C 100 600, 50 350, 250 250 
-                    C 250 50, 750 50, 750 250 
-                    C 950 350, 900 600, 650 600 
-                    C 600 750, 400 750, 350 600 Z" fill="#4caf50"/>
-                
-                <!-- Внутренний светлый контур для объема кроны -->
-                <path class="tree-crown-highlight" d="
-                    M 360 570 
-                    C 140 570, 100 370, 270 300 
-                    C 270 120, 730 120, 730 300 
-                    C 900 370, 860 570, 640 570 
-                    C 600 700, 400 700, 360 570 Z" fill="#66bb6a"/>
+                <path class="tree-crown" d="M 350 600 C 100 600, 50 350, 250 250 C 250 50, 750 50, 750 250 C 950 350, 900 600, 650 600 C 600 750, 400 750, 350 600 Z" fill="#4caf50"/>
+                <path class="tree-crown-highlight" d="M 360 570 C 140 570, 100 370, 270 300 C 270 120, 730 120, 730 300 C 900 370, 860 570, 640 570 C 600 700, 400 700, 360 570 Z" fill="#66bb6a"/>
             </svg>
-            
-            <!-- Контейнер для слотов с буквами (точно поверх кроны) -->
             <div id="tree-letters-container"></div>
         </div>
-
         <div class="apple-bottom-panel">
             <div class="dice-container">
                 <div class="apple-dice" id="apple-dice" onclick="rollAppleDice()">?</div>
-                <span style="color: #333; font-weight: bold; font-size: 1.2rem;">Бросить кубик</span>
+                <span style="color: #333; font-weight: bold; font-size: 1.5rem;">Бросить кубик</span>
             </div>
-            
             <div class="basket-container">
-                <!-- Векторная корзина с яблоками -->
                 <svg class="basket-svg" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Яблоки внутри корзины -->
                     <circle cx="20" cy="35" r="15" fill="#f44336"/><path d="M 20 20 Q 25 15 30 20" fill="none" stroke="#4caf50" stroke-width="3"/>
                     <circle cx="50" cy="25" r="15" fill="#e53935"/><path d="M 50 10 Q 55 5 60 10" fill="none" stroke="#4caf50" stroke-width="3"/>
                     <circle cx="80" cy="35" r="15" fill="#d32f2f"/><path d="M 80 20 Q 85 15 90 20" fill="none" stroke="#4caf50" stroke-width="3"/>
                     <circle cx="35" cy="40" r="15" fill="#ef5350"/><path d="M 35 25 Q 40 20 45 25" fill="none" stroke="#4caf50" stroke-width="3"/>
                     <circle cx="65" cy="40" r="15" fill="#f44336"/><path d="M 65 25 Q 70 20 75 25" fill="none" stroke="#4caf50" stroke-width="3"/>
-                    <!-- Сама корзина -->
                     <path d="M 10 40 L 90 40 L 75 80 L 25 80 Z" fill="#d7ccc8" stroke="#8d6e63" stroke-width="4"/>
                     <path d="M 10 40 L 90 40" fill="none" stroke="#795548" stroke-width="6" stroke-linecap="round"/>
                     <path d="M 25 40 L 35 80 M 45 40 L 50 80 M 65 40 L 60 80 M 80 40 L 70 80" fill="none" stroke="#bcaaa4" stroke-width="2"/>
                 </svg>
             </div>
         </div>
+        <div id="win-message-apple" class="win-message"><h2 style="color: #ffeb3b; text-shadow: 2px 2px 4px #000;">Дерево в яблоках! 🍎</h2><button class="btn btn-apple" onclick="endGame()">Меню</button></div>
+    </div>
 
-        <div id="win-message-apple" class="win-message">
-            <h2 style="color: #ffeb3b; text-shadow: 2px 2px 4px #000;">Дерево в яблоках! 🍎</h2>
-            <button class="btn btn-apple" onclick="endGame()">Меню</button>
+    <!-- 6. КОРЗИНКА ДЛЯ МИШКИ -->
+    <div id="bear-screen">
+        <button class="back-btn" onclick="endGame()" style="color: #333; border-color: #333; z-index: 50;">🚪 Выйти</button>
+        
+        <div class="bear-hills"></div>
+        <div id="bear-items-field"></div>
+        
+        <div class="bear-container">
+            <svg class="bear-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="25" fill="#8d6e63"/><circle cx="50" cy="50" r="15" fill="#d7ccc8"/>
+                <circle cx="150" cy="50" r="25" fill="#8d6e63"/><circle cx="150" cy="50" r="15" fill="#d7ccc8"/>
+                <ellipse cx="100" cy="150" rx="70" ry="60" fill="#795548"/><ellipse cx="100" cy="160" rx="45" ry="40" fill="#a1887f"/>
+                <circle cx="100" cy="90" r="60" fill="#795548"/>
+                <ellipse cx="100" cy="105" rx="30" ry="25" fill="#d7ccc8"/>
+                <circle cx="100" cy="95" r="8" fill="#3e2723"/>
+                <path d="M 100 103 L 100 115" fill="none" stroke="#3e2723" stroke-width="3"/>
+                <path d="M 85 115 Q 100 125 115 115" fill="none" stroke="#3e2723" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="75" cy="75" r="8" fill="#3e2723"/><circle cx="125" cy="75" r="8" fill="#3e2723"/>
+                <circle cx="73" cy="73" r="3" fill="white"/><circle cx="123" cy="73" r="3" fill="white"/>
+                <ellipse cx="40" cy="140" rx="20" ry="30" fill="#8d6e63" transform="rotate(-30 40 140)"/>
+                <ellipse cx="160" cy="140" rx="20" ry="30" fill="#8d6e63" transform="rotate(30 160 140)"/>
+            </svg>
+            <div class="bear-basket-wrapper" id="target-basket">
+                <svg class="bear-basket-svg" viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 10 20 L 90 20 L 80 70 L 20 70 Z" fill="#ffb74d" stroke="#ef6c00" stroke-width="3"/>
+                    <path d="M 10 20 L 90 20" fill="none" stroke="#e65100" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M 25 20 L 30 70 M 40 20 L 45 70 M 55 20 L 55 70 M 70 20 L 65 70" fill="none" stroke="#ffa726" stroke-width="2"/>
+                    <path d="M 15 35 L 85 35 M 18 50 L 82 50" fill="none" stroke="#ffa726" stroke-width="2"/>
+                </svg>
+                <div class="basket-target-label" id="bear-basket-letter">А</div>
+            </div>
         </div>
+
+        <div id="win-message-bear" class="win-message"><h2 style="color: #ffeb3b; text-shadow: 2px 2px 4px #000;">Мишка готов! 🐻🎒</h2><button class="btn btn-bear" onclick="endGame()">Меню</button></div>
     </div>
 
     <script>
+        // ВНИМАНИЕ: Словарь переработан логопедически! Твёрдые согласные и ударные гласные.
         const dictionary = {
-            'А': '🍉', 'Б': '🍌', 'В': '🚁', 'Г': '🍄', 'Д': '🏠', 'Е': '🦝', 'Ё': '🦔', 'Ж': '🦒', 'З': '☂️',
-            'И': '🧸', 'Й': '🧘', 'К': '🐱', 'Л': '🦊', 'М': '🚗', 'Н': '✂️', 'О': '🐒', 'П': '🐧', 'Р': '🚀',
-            'С': '🐘', 'Т': '🐯', 'У': '🐌', 'Ф': '🔦', 'Х': '🍞', 'Ц': '🐥', 'Ч': '🐢', 'Ш': '🎈', 'Щ': '🪥',
-            'Э': '🚜', 'Ю': '🏕️', 'Я': '🍎'
+            'А': '🍉', 'Б': '🍌', 'В': '🐺', 'Г': '🍄', 'Д': '🏠', 'Е': '🦝', 'Ё': '🦔', 'Ж': '🪲', 'З': '☂️',
+            'И': '🧸', 'Й': '🧘', 'К': '🐱', 'Л': '🐎', 'М': '🚗', 'Н': '🦏', 'О': '☁️', 'П': '🕷️', 'Р': '🚀',
+            'С': '🐘', 'Т': '🚜', 'У': '🐌', 'Ф': '🔦', 'Х': '🍞', 'Ц': '🐥', 'Ч': '🐢', 'Ш': '🎈', 'Щ': '🪥',
+            'Э': '🚜', 'Ю': '🌀', 'Я': '🍎'
+        };
+
+        const jumpDict = {
+            'А': { start: ['Арбуз', '🍉'], middle: ['Мак', '🌺'], end: ['Луна', '🌙'] },
+            'Б': { start: ['Банан', '🍌'], middle: ['Кабан', '🐗'], end: ['Краб', '🦀'] },
+            'В': { start: ['Волк', '🐺'], middle: ['Сова', '🦉'], end: ['Лев', '🦁'] },
+            'Г': { start: ['Гриб', '🍄'], middle: ['Вагон', '🚆'], end: ['Снег', '❄️'] }, 
+            'Д': { start: ['Дом', '🏠'], middle: ['Вода', '💧'], end: ['Мёд', '🍯'] },
+            'Е': { start: ['Енот', '🦝'], middle: ['Лес', '🌲'], end: ['Солнце', '☀️'] },
+            'Ё': { start: ['Ёжик', '🦔'], middle: ['Мёд', '🍯'], end: ['Бельё', '🧺'] },
+            'Ж': { start: ['Жук', '🪲'], middle: ['Ножницы', '✂️'], end: ['Нож', '🔪'] },
+            'З': { start: ['Зонт', '☂️'], middle: ['Коза', '🐐'], end: ['Глаз', '👁️'] },
+            'И': { start: ['Игрушка', '🧸'], middle: ['Лимон', '🍋'], end: ['Носки', '🧦'] },
+            'К': { start: ['Кот', '🐱'], middle: ['Окно', '🪟'], end: ['Лук', '🧅'] },
+            'Л': { start: ['Лошадь', '🐎'], middle: ['Слон', '🐘'], end: ['Стул', '🪑'] },
+            'М': { start: ['Машина', '🚗'], middle: ['Камин', '🔥'], end: ['Дом', '🏠'] },
+            'Н': { start: ['Носорог', '🦏'], middle: ['Солнце', '☀️'], end: ['Слон', '🐘'] },
+            'О': { start: ['Облако', '☁️'], middle: ['Кот', '🐱'], end: ['Яблоко', '🍎'] },
+            'П': { start: ['Паук', '🕷️'], middle: ['Лампа', '💡'], end: ['Суп', '🍲'] },
+            'Р': { start: ['Рыба', '🐟'], middle: ['Корова', '🐄'], end: ['Сыр', '🧀'] },
+            'С': { start: ['Слон', '🐘'], middle: ['Коса', '👱‍♀️'], end: ['Ананас', '🍍'] },
+            'Т': { start: ['Трактор', '🚜'], middle: ['Утка', '🦆'], end: ['Кот', '🐱'] },
+            'У': { start: ['Улитка', '🐌'], middle: ['Жук', '🪲'], end: ['Кенгуру', '🦘'] },
+            'Ф': { start: ['Фонарик', '🔦'], middle: ['Софа', '🛋️'], end: ['Шарф', '🧣'] },
+            'Х': { start: ['Хлеб', '🍞'], middle: ['Муха', '🪰'], end: ['Петух', '🐓'] },
+            'Ц': { start: ['Цыпленок', '🐥'], middle: ['Овца', '🐑'], end: ['Огурец', '🥒'] },
+            'Ч': { start: ['Черепаха', '🐢'], middle: ['Очки', '👓'], end: ['Мяч', '⚽'] },
+            'Ш': { start: ['Шарик', '🎈'], middle: ['Мышь', '🐭'], end: ['Карандаш', '✏️'] },
+            'Щ': { start: ['Щётка', '🪥'], middle: ['Ящерица', '🦎'], end: ['Плащ', '🧥'] },
+            'Э': { start: ['Экскаватор', '🚜'], middle: ['Мэр', '👨‍💼'], end: ['Алоэ', '🪴'] },
+            'Ю': { start: ['Юла', '🌀'], middle: ['Тюльпан', '🌷'], end: ['Меню', '📜'] },
+            'Я': { start: ['Яблоко', '🍎'], middle: ['Мяч', '⚽'], end: ['Змея', '🐍'] }
         };
 
         // --- АУДИО ---
@@ -616,17 +564,18 @@
             'stars': document.getElementById('stars-screen'),
             'flies': document.getElementById('flies-screen'),
             'air': document.getElementById('air-flies-screen'),
-            'apple': document.getElementById('apple-screen') // Добавили экран яблони
+            'apple': document.getElementById('apple-screen'),
+            'bear': document.getElementById('bear-screen') 
         };
         const wins = {
             'flashlight': document.getElementById('win-message-flashlight'),
             'stars': document.getElementById('win-message-stars'),
             'flies': document.getElementById('win-message-flies'),
             'air': document.getElementById('win-message-air'),
-            'apple': document.getElementById('win-message-apple') // Победа яблони
+            'apple': document.getElementById('win-message-apple'),
+            'bear': document.getElementById('win-message-bear') 
         };
 
-        // Исправленная главная функция, которая включает и выключает экраны
         function startGame(mode) {
             audio.init(); audio.play('click');
             
@@ -650,7 +599,8 @@
             else if (mode === 'stars') initStars();
             else if (mode === 'flies') initFlies();
             else if (mode === 'air') initAirFlies();
-            else if (mode === 'apple') initAppleTree(); // Инициализация яблони
+            else if (mode === 'apple') initAppleTree(); 
+            else if (mode === 'bear') initBear(); 
         }
 
         function endGame() {
@@ -669,6 +619,138 @@
             }
         }
 
+        // ================= 6. КОРЗИНКА ДЛЯ МИШКИ (КРУПНЫЙ ФОРМАТ И АНТИ-НАЛОЖЕНИЕ) =================
+        let bearCurrentIdx = 0;
+        let bearItemsCaught = 0;
+        
+        const mirrorableLetters = ['Б','В','Г','Е','И','К','Л','Р','С','У','Ц','Ч','Щ','Э','Ю','Я'];
+
+        function initBear() {
+            bearCurrentIdx = 0;
+            renderBearLevel();
+        }
+
+        function renderBearLevel() {
+            if (bearCurrentIdx >= playLetters.length) { checkWin(1, 1); return; }
+            
+            const targetLetter = playLetters[bearCurrentIdx];
+            document.getElementById('bear-basket-letter').innerText = targetLetter;
+            
+            const container = document.getElementById('bear-items-field');
+            container.innerHTML = '';
+            
+            bearItemsCaught = 0;
+            let levelItems = [];
+            
+            // Две правильные буквы
+            levelItems.push({ text: targetLetter, isCorrect: true, type: 'letter' });
+            levelItems.push({ text: targetLetter, isCorrect: true, type: 'letter' });
+            
+            // Две правильные картинки из Фонетического словаря
+            let correctEmoji1 = dictionary[targetLetter] || '⭐';
+            let correctEmoji2 = (jumpDict[targetLetter] && jumpDict[targetLetter].start) ? jumpDict[targetLetter].start[1] : correctEmoji1;
+            levelItems.push({ text: correctEmoji1, isCorrect: true, type: 'emoji' });
+            levelItems.push({ text: correctEmoji2, isCorrect: true, type: 'emoji' });
+
+            // Две зеркальные буквы
+            let mirrorLet1, mirrorLet2;
+            if (mirrorableLetters.includes(targetLetter)) {
+                mirrorLet1 = targetLetter; mirrorLet2 = targetLetter;
+            } else {
+                mirrorLet1 = mirrorableLetters[Math.floor(Math.random() * mirrorableLetters.length)];
+                mirrorLet2 = mirrorableLetters[Math.floor(Math.random() * mirrorableLetters.length)];
+            }
+            levelItems.push({ text: mirrorLet1, isCorrect: false, type: 'letter', mirrored: true });
+            levelItems.push({ text: mirrorLet2, isCorrect: false, type: 'letter', mirrored: true });
+
+            // Три случайные неправильные картинки
+            const allAlphabet = Object.keys(dictionary);
+            for(let i=0; i<3; i++) {
+                let randomLet = allAlphabet[Math.floor(Math.random()*allAlphabet.length)];
+                while(randomLet === targetLetter) randomLet = allAlphabet[Math.floor(Math.random()*allAlphabet.length)];
+                levelItems.push({ text: dictionary[randomLet], isCorrect: false, type: 'emoji' });
+            }
+
+            levelItems.sort(() => Math.random() - 0.5);
+
+            let placedPositions = []; // Храним позиции для избежания наложения
+
+            levelItems.forEach((itemData, index) => {
+                const el = document.createElement('div');
+                el.className = 'bear-item';
+                
+                let valid = false;
+                let attempts = 0;
+                let leftPos, topPos;
+                const minDist = 20; // Дистанция между центрами (в % от ширины) стала БОЛЬШЕ
+
+                // Алгоритм Anti-Overlap
+                while (!valid && attempts < 150) {
+                    leftPos = 5 + Math.random() * 85; 
+                    topPos = 5 + Math.random() * 85; 
+                    valid = true;
+                    for (let pos of placedPositions) {
+                        let dx = pos.left - leftPos;
+                        let dy = pos.top - topPos;
+                        if (Math.sqrt(dx*dx + dy*dy) < minDist) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    attempts++;
+                }
+                placedPositions.push({left: leftPos, top: topPos});
+                
+                el.style.left = leftPos + '%';
+                el.style.top = topPos + '%';
+                el.style.animationDelay = `-${Math.random()*3}s`;
+
+                if (itemData.mirrored) {
+                    el.innerHTML = `<span class="mirrored-letter">${itemData.text}</span>`;
+                } else {
+                    el.innerText = itemData.text;
+                }
+
+                el.onclick = function(e) {
+                    if (el.classList.contains('flying-to-basket')) return;
+
+                    if (itemData.isCorrect) {
+                        audio.play('magic');
+                        
+                        const basket = document.getElementById('target-basket');
+                        const basketRect = basket.getBoundingClientRect();
+                        const targetX = basketRect.left + basketRect.width / 2;
+                        const targetY = basketRect.top + basketRect.height / 2;
+
+                        const elRect = el.getBoundingClientRect();
+                        el.style.position = 'fixed';
+                        el.style.left = elRect.left + 'px';
+                        el.style.top = elRect.top + 'px';
+                        
+                        setTimeout(() => {
+                            el.classList.add('flying-to-basket');
+                            el.style.left = targetX + 'px';
+                            el.style.top = targetY + 'px';
+                        }, 10);
+
+                        bearItemsCaught++;
+                        if (bearItemsCaught >= 4) {
+                            setTimeout(() => { 
+                                bearCurrentIdx++; 
+                                renderBearLevel(); 
+                            }, 1200);
+                        }
+                    } else {
+                        audio.play('error');
+                        el.classList.add('shake-anim');
+                        setTimeout(() => el.classList.remove('shake-anim'), 400);
+                    }
+                };
+
+                container.appendChild(el);
+            });
+        }
+
         // ================= 5. ЯБЛОНЯ =================
         let appleTreeLetters = [];
         let appleTotalSlots = 19; 
@@ -676,64 +758,35 @@
         let activeDiceLetter = '';
 
         function initAppleTree() {
-            applesCovered = 0;
-            activeDiceLetter = '';
+            applesCovered = 0; activeDiceLetter = '';
             document.getElementById('apple-dice').innerText = '?';
-            
             const container = document.getElementById('tree-letters-container');
             container.innerHTML = '';
             
             appleTreeLetters = [];
-            for (let i = 0; i < appleTotalSlots; i++) {
-                appleTreeLetters.push(playLetters[i % playLetters.length]);
-            }
+            for (let i = 0; i < appleTotalSlots; i++) { appleTreeLetters.push(playLetters[i % playLetters.length]); }
             appleTreeLetters.sort(() => Math.random() - 0.5);
 
-            // 19 Идеально выверенных позиций внутри НОВОЙ СВЕРХШИРОКОЙ кроны
-            // Координаты в процентах от #tree-letters-container
             const positions = [
-                {t: 15, l: 40}, {t: 15, l: 60},
-                {t: 30, l: 20}, {t: 30, l: 35}, {t: 30, l: 50}, {t: 30, l: 65}, {t: 30, l: 80},
+                {t: 15, l: 40}, {t: 15, l: 60}, {t: 30, l: 20}, {t: 30, l: 35}, {t: 30, l: 50}, {t: 30, l: 65}, {t: 30, l: 80},
                 {t: 50, l: 15}, {t: 48, l: 28}, {t: 48, l: 42}, {t: 48, l: 58}, {t: 48, l: 72}, {t: 50, l: 85},
-                {t: 65, l: 25}, {t: 65, l: 40}, {t: 65, l: 60}, {t: 65, l: 75},
-                {t: 80, l: 40}, {t: 80, l: 60}
+                {t: 65, l: 25}, {t: 65, l: 40}, {t: 65, l: 60}, {t: 65, l: 75}, {t: 80, l: 40}, {t: 80, l: 60}
             ];
 
             appleTreeLetters.forEach((letter, index) => {
                 const pos = positions[index];
                 if (!pos) return;
-
                 const slot = document.createElement('div');
                 slot.className = 'tree-letter-slot';
-                slot.style.top = pos.t + '%';
-                slot.style.left = pos.l + '%';
-                
-                // Милое нарисованное яблочко с бликом и листиком
-                slot.innerHTML = `
-                    <span class="letter-text">${letter}</span>
-                    <svg class="apple-covered-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="transform: translate(-50%, -50%); top: 50%; left: 50%;">
-                        <circle cx="50" cy="55" r="40" fill="#e53935"/>
-                        <!-- Блик -->
-                        <path d="M 30 45 Q 25 60 40 75" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="6" stroke-linecap="round"/>
-                        <!-- Листик -->
-                        <path d="M 50 15 Q 60 5 70 15 Q 75 25 65 35 Q 55 25 50 15 Z" fill="#8bc34a"/>
-                        <!-- Веточка -->
-                        <path d="M 50 25 Q 50 15 55 5" fill="none" stroke="#5d4037" stroke-width="4" stroke-linecap="round"/>
-                    </svg>
-                `;
+                slot.style.top = pos.t + '%'; slot.style.left = pos.l + '%';
+                slot.innerHTML = `<span class="letter-text">${letter}</span><svg class="apple-covered-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="transform: translate(-50%, -50%); top: 50%; left: 50%;"><circle cx="50" cy="55" r="40" fill="#e53935"/><path d="M 30 45 Q 25 60 40 75" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="6" stroke-linecap="round"/><path d="M 50 15 Q 60 5 70 15 Q 75 25 65 35 Q 55 25 50 15 Z" fill="#8bc34a"/><path d="M 50 25 Q 50 15 55 5" fill="none" stroke="#5d4037" stroke-width="4" stroke-linecap="round"/></svg>`;
 
                 slot.onclick = function() {
                     if (slot.classList.contains('covered')) return;
-                    
                     if (activeDiceLetter === '?' || activeDiceLetter === '' || activeDiceLetter === letter) {
-                        slot.classList.add('covered');
-                        audio.play('slurp');
-                        applesCovered++;
-                        checkAppleWin();
+                        slot.classList.add('covered'); audio.play('slurp'); applesCovered++; checkAppleWin();
                     } else {
-                        audio.play('error');
-                        slot.style.transform = 'rotate(15deg) scale(1.1)';
-                        setTimeout(() => slot.style.transform = '', 200);
+                        audio.play('error'); slot.style.transform = 'rotate(15deg) scale(1.1)'; setTimeout(() => slot.style.transform = '', 200);
                     }
                 };
                 container.appendChild(slot);
@@ -743,63 +796,36 @@
         function rollAppleDice() {
             const dice = document.getElementById('apple-dice');
             if (dice.classList.contains('dice-animating')) return;
-
-            audio.play('click');
-            dice.classList.add('dice-animating');
-            
-            let rollInterval = setInterval(() => {
-                dice.innerText = playLetters[Math.floor(Math.random() * playLetters.length)];
-            }, 50);
-
+            audio.play('click'); dice.classList.add('dice-animating');
+            let rollInterval = setInterval(() => { dice.innerText = playLetters[Math.floor(Math.random() * playLetters.length)]; }, 50);
             setTimeout(() => {
-                clearInterval(rollInterval);
-                dice.classList.remove('dice-animating');
-                
+                clearInterval(rollInterval); dice.classList.remove('dice-animating');
                 const uncoveredSlots = document.querySelectorAll('.tree-letter-slot:not(.covered) .letter-text');
                 if (uncoveredSlots.length > 0) {
                     const remainingLetters = Array.from(uncoveredSlots).map(el => el.innerText);
                     activeDiceLetter = remainingLetters[Math.floor(Math.random() * remainingLetters.length)];
-                    dice.innerText = activeDiceLetter;
-                    audio.play('magic');
+                    dice.innerText = activeDiceLetter; audio.play('magic');
                 }
             }, 500);
         }
 
         function checkAppleWin() {
             if (applesCovered >= appleTotalSlots) {
-                setTimeout(() => {
-                    audio.playWin();
-                    document.getElementById('win-message-apple').style.display = 'block';
-                }, 800);
-            } else {
-                setTimeout(() => {
-                    document.getElementById('apple-dice').innerText = '?';
-                    activeDiceLetter = '?';
-                }, 1000);
-            }
+                setTimeout(() => { audio.playWin(); document.getElementById('win-message-apple').style.display = 'block'; }, 800);
+            } else { setTimeout(() => { document.getElementById('apple-dice').innerText = '?'; activeDiceLetter = '?'; }, 1000); }
         }
 
-        // ================= 2. МЕХАНИКА: ВОЗДУШНЫЕ МУШКИ (РАМКА) =================
-        let airCurrentIdx = 0;
-        let airFliesCaught = 0;
-        let airFliesToCatch = 3;
+        // ================= 4. ВОЗДУШНЫЕ МУШКИ (РАМКА) =================
+        let airCurrentIdx = 0; let airFliesCaught = 0; let airFliesToCatch = 3;
 
-        function initAirFlies() {
-            airCurrentIdx = 0;
-            renderAirFliesLevel();
-        }
+        function initAirFlies() { airCurrentIdx = 0; renderAirFliesLevel(); }
 
         function renderAirFliesLevel() {
             if (airCurrentIdx >= playLetters.length) { checkWin(1, 1); return; }
-            
             const targetLetter = playLetters[airCurrentIdx];
             document.getElementById('air-target-letter').innerText = targetLetter;
-            
             const container = document.getElementById('air-flies-container');
-            container.innerHTML = '';
-            
-            airFliesCaught = 0;
-            airFliesToCatch = 3 + Math.floor(Math.random() * 2);
+            container.innerHTML = ''; airFliesCaught = 0; airFliesToCatch = 3 + Math.floor(Math.random() * 2);
 
             const totalFlies = 8;
             const allAlphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ".split('');
@@ -814,156 +840,31 @@
             levelLetters.forEach((letter, index) => {
                 const flyWrapper = document.createElement('div');
                 flyWrapper.className = 'air-fly-wrapper';
-                
-                const lane = index % 6;
-                const laneWidth = 100 / 6;
+                const lane = index % 6; const laneWidth = 100 / 6;
                 const leftPos = (lane * laneWidth) + (Math.random() * (laneWidth / 2));
-                
                 flyWrapper.style.left = leftPos + '%';
+                // Медленная и комфортная скорость полета (от 12 до 20 секунд)
                 flyWrapper.style.animation = `flyUpwards ${12 + Math.random() * 8}s linear infinite`;
                 flyWrapper.style.animationDelay = `-${Math.random() * 10}s`;
 
                 const flyInner = document.createElement('div');
                 flyInner.className = 'air-fly-inner';
-                flyInner.innerHTML = `
-                    <svg viewBox="0 0 100 100" class="air-fly-svg">
-                        <path d="M50 45 Q 10 0 5 30 Q 25 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
-                        <path d="M50 45 Q 90 0 95 30 Q 75 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
-                        <ellipse cx="50" cy="55" rx="22" ry="30" fill="#37474f"/>
-                        <circle cx="50" cy="28" r="14" fill="#263238"/>
-                        <circle cx="43" cy="25" r="5" fill="white"/><circle cx="57" cy="25" r="5" fill="white"/>
-                        <circle cx="43" cy="25" r="2" fill="black"/><circle cx="57" cy="25" r="2" fill="black"/>
-                        <circle cx="50" cy="58" r="18" fill="#fff"/>
-                        <text x="50" y="58" dy=".35em" text-anchor="middle" font-family="'Nunito', sans-serif" font-size="28" font-weight="900" fill="#b71c1c">${letter}</text>
-                    </svg>
-                `;
+                flyInner.innerHTML = `<svg viewBox="0 0 100 100" class="air-fly-svg"><path d="M50 45 Q 10 0 5 30 Q 25 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/><path d="M50 45 Q 90 0 95 30 Q 75 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/><ellipse cx="50" cy="55" rx="22" ry="30" fill="#37474f"/><circle cx="50" cy="28" r="14" fill="#263238"/><circle cx="43" cy="25" r="5" fill="white"/><circle cx="57" cy="25" r="5" fill="white"/><circle cx="43" cy="25" r="2" fill="black"/><circle cx="57" cy="25" r="2" fill="black"/><circle cx="50" cy="58" r="18" fill="#fff"/><text x="50" y="58" dy=".35em" text-anchor="middle" font-family="'Nunito', sans-serif" font-size="38" font-weight="900" fill="#b71c1c">${letter}</text></svg>`;
 
                 flyInner.onclick = function() {
                     if (flyInner.classList.contains('caught')) return;
                     if (letter === targetLetter) {
-                        audio.play('magic');
-                        flyInner.classList.add('caught');
-                        airFliesCaught++;
-                        if (airFliesCaught >= airFliesToCatch) {
-                            setTimeout(() => { airCurrentIdx++; renderAirFliesLevel(); }, 800);
-                        }
-                    } else {
-                        audio.play('error');
-                        flyInner.style.filter = 'grayscale(1) opacity(0.5)';
-                        setTimeout(() => flyInner.style.filter = '', 200);
-                    }
+                        audio.play('magic'); flyInner.classList.add('caught'); airFliesCaught++;
+                        if (airFliesCaught >= airFliesToCatch) { setTimeout(() => { airCurrentIdx++; renderAirFliesLevel(); }, 800); }
+                    } else { audio.play('error'); flyInner.style.filter = 'grayscale(1) opacity(0.5)'; setTimeout(() => flyInner.style.filter = '', 200); }
                 };
-
-                flyWrapper.appendChild(flyInner);
-                container.appendChild(flyWrapper);
+                flyWrapper.appendChild(flyInner); container.appendChild(flyWrapper);
             });
         }
 
-        // ================= 3. МЕХАНИКА: ЛЯГУШКА И МУХИ (центр) =================
-        let fliesCurrentIdx = 0;
-        let fliesToCatch = 0;
-        let fliesCaught = 0;
-
-        function initFlies() {
-            fliesCurrentIdx = 0;
-            renderFliesLevel();
-        }
-
-        function renderFliesLevel() {
-            if (fliesCurrentIdx >= playLetters.length) { checkWin(1, 1); return; }
-            
-            const targetLetter = playLetters[fliesCurrentIdx];
-            document.getElementById('frog-belly-target').textContent = targetLetter;
-            
-            const container = document.getElementById('flies-container');
-            container.innerHTML = '';
-            document.getElementById('frog-tongue').style.display = 'none';
-
-            fliesToCatch = 3 + Math.floor(Math.random() * 2);
-            fliesCaught = 0;
-
-            const totalFlies = 10;
-            const allAlphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ".split('');
-            let levelLetters = Array(fliesToCatch).fill(targetLetter);
-            
-            while(levelLetters.length < totalFlies) {
-                let randomLet = allAlphabet[Math.floor(Math.random()*allAlphabet.length)];
-                if(randomLet !== targetLetter) levelLetters.push(randomLet);
-            }
-            levelLetters.sort(() => Math.random() - 0.5);
-
-            levelLetters.forEach((letter, index) => {
-                const fly = document.createElement('div');
-                fly.className = 'fly-item';
-                
-                fly.innerHTML = `
-                    <svg viewBox="0 0 100 100" class="fly-svg">
-                        <path d="M50 45 Q 10 0 5 30 Q 25 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
-                        <path d="M50 45 Q 90 0 95 30 Q 75 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/>
-                        <ellipse cx="50" cy="55" rx="22" ry="30" fill="#37474f"/>
-                        <circle cx="50" cy="28" r="14" fill="#263238"/>
-                        <circle cx="43" cy="25" r="5" fill="white"/><circle cx="57" cy="25" r="5" fill="white"/>
-                        <circle cx="43" cy="25" r="2" fill="black"/><circle cx="57" cy="25" r="2" fill="black"/>
-                        <circle cx="50" cy="58" r="18" fill="#fff"/>
-                        <text x="50" y="58" dy=".35em" text-anchor="middle" font-family="'Nunito', sans-serif" font-size="28" font-weight="900" fill="#b71c1c">${letter}</text>
-                    </svg>
-                `;
-                
-                const angle = (index / totalFlies) * Math.PI * 2;
-                const radiusX = 35 + Math.random() * 8; 
-                const radiusY = 25 + Math.random() * 8; 
-                let posX = 50 + Math.cos(angle) * radiusX;
-                let posY = 55 + Math.sin(angle) * radiusY; 
-                posX = Math.max(15, Math.min(85, posX));
-                posY = Math.max(25, Math.min(80, posY));
-
-                fly.style.left = posX + '%'; fly.style.top = posY + '%';
-                fly.style.animationDelay = `-${Math.random()*4}s`; 
-                fly.style.animationDuration = `${2.5 + Math.random()*2}s`;
-
-                fly.onclick = function(e) {
-                    if (fly.classList.contains('caught')) return;
-                    if (letter === targetLetter) {
-                        fly.classList.add('caught'); catchFly(fly, e.clientX, e.clientY);
-                    } else {
-                        audio.play('error');
-                        fly.style.filter = 'grayscale(1) opacity(0.5)';
-                        setTimeout(() => fly.style.filter = '', 200);
-                    }
-                };
-                container.appendChild(fly);
-            });
-        }
-
-        function catchFly(flyElement, flyX, flyY) {
-            audio.play('slurp');
-            const tongue = document.getElementById('frog-tongue');
-            const frogRect = document.getElementById('flies-frog').getBoundingClientRect();
-            
-            const startX = frogRect.left + frogRect.width / 2;
-            const startY = frogRect.top + frogRect.height * 0.42; 
-            
-            const length = Math.sqrt(Math.pow(flyX - startX, 2) + Math.pow(flyY - startY, 2));
-            const angle = Math.atan2(flyY - startY, flyX - startX) * 180 / Math.PI;
-
-            tongue.style.display = 'block'; tongue.style.left = startX + 'px'; tongue.style.top = startY + 'px';
-            tongue.style.width = '0px'; tongue.style.transform = `rotate(${angle}deg)`;
-
-            setTimeout(() => { tongue.style.width = length + 'px'; }, 10);
-            
-            setTimeout(() => {
-                flyElement.style.display = 'none'; tongue.style.width = '0px';
-                fliesCaught++;
-                if (fliesCaught >= fliesToCatch) {
-                    setTimeout(() => { fliesCurrentIdx++; renderFliesLevel(); }, 600);
-                }
-            }, 200);
-        }
-
-        // ================= СТАРЫЕ МЕХАНИКИ (Фонарик и Звезды) =================
+        // ================= 1. ФОНАРИК =================
         function initFlashlight() {
-            const container = document.getElementById('items-container');
-            container.innerHTML = '';
+            const container = document.getElementById('items-container'); container.innerHTML = '';
             document.getElementById('flashlight-overlay').style.background = `radial-gradient(circle at 50% 50%, transparent 60px, rgba(5, 10, 15, 0.98) 160px)`;
             playLetters.forEach(letter => {
                 const el = document.createElement('div'); el.className = 'game-item'; el.innerText = letter;
@@ -989,6 +890,7 @@
         document.addEventListener('mousemove', e => updateFlashlight(e.clientX, e.clientY));
         document.addEventListener('touchmove', e => updateFlashlight(e.touches[0].clientX, e.touches[0].clientY));
 
+        // ================= 2. ЗВЕЗДОПАД =================
         let placedStarsPositions = [];
         let bgStarsGenerated = false;
         function initStars() {
@@ -1031,6 +933,68 @@
                 };
                 container.appendChild(el);
             });
+        }
+
+        // ================= 3. ЛЯГУШКА И МУХИ (ЦЕНТР) =================
+        let fliesCurrentIdx = 0; let fliesToCatch = 0; let fliesCaught = 0;
+        function initFlies() { fliesCurrentIdx = 0; renderFliesLevel(); }
+
+        function renderFliesLevel() {
+            if (fliesCurrentIdx >= playLetters.length) { checkWin(1, 1); return; }
+            const targetLetter = playLetters[fliesCurrentIdx];
+            document.getElementById('frog-belly-target').textContent = targetLetter;
+            const container = document.getElementById('flies-container');
+            container.innerHTML = ''; document.getElementById('frog-tongue').style.display = 'none';
+
+            fliesToCatch = 3 + Math.floor(Math.random() * 2); fliesCaught = 0;
+            const totalFlies = 10; const allAlphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ".split('');
+            let levelLetters = Array(fliesToCatch).fill(targetLetter);
+            
+            while(levelLetters.length < totalFlies) {
+                let randomLet = allAlphabet[Math.floor(Math.random()*allAlphabet.length)];
+                if(randomLet !== targetLetter) levelLetters.push(randomLet);
+            }
+            levelLetters.sort(() => Math.random() - 0.5);
+
+            levelLetters.forEach((letter, index) => {
+                const fly = document.createElement('div'); fly.className = 'fly-item';
+                fly.innerHTML = `<svg viewBox="0 0 100 100" class="fly-svg"><path d="M50 45 Q 10 0 5 30 Q 25 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/><path d="M50 45 Q 90 0 95 30 Q 75 60 50 45" fill="rgba(255,255,255,0.9)" stroke="#81d4fa" stroke-width="3"/><ellipse cx="50" cy="55" rx="22" ry="30" fill="#37474f"/><circle cx="50" cy="28" r="14" fill="#263238"/><circle cx="43" cy="25" r="5" fill="white"/><circle cx="57" cy="25" r="5" fill="white"/><circle cx="43" cy="25" r="2" fill="black"/><circle cx="57" cy="25" r="2" fill="black"/><circle cx="50" cy="58" r="18" fill="#fff"/><text x="50" y="58" dy=".35em" text-anchor="middle" font-family="'Nunito', sans-serif" font-size="35" font-weight="900" fill="#b71c1c">${letter}</text></svg>`;
+                
+                const angle = (index / totalFlies) * Math.PI * 2;
+                const radiusX = 35 + Math.random() * 8; const radiusY = 25 + Math.random() * 8; 
+                let posX = 50 + Math.cos(angle) * radiusX; let posY = 55 + Math.sin(angle) * radiusY; 
+                posX = Math.max(15, Math.min(85, posX)); posY = Math.max(25, Math.min(80, posY)); 
+
+                fly.style.left = posX + '%'; fly.style.top = posY + '%';
+                fly.style.animationDelay = `-${Math.random()*4}s`; fly.style.animationDuration = `${2.5 + Math.random()*2}s`;
+
+                fly.onclick = function(e) {
+                    if (fly.classList.contains('caught')) return;
+                    if (letter === targetLetter) { fly.classList.add('caught'); catchFlyCentered(fly, e.clientX, e.clientY); } 
+                    else { audio.play('error'); fly.style.filter = 'grayscale(1) opacity(0.5)'; setTimeout(() => fly.style.filter = '', 200); }
+                };
+                container.appendChild(fly);
+            });
+        }
+
+        function catchFlyCentered(flyElement, flyX, flyY) {
+            audio.play('slurp');
+            const tongue = document.getElementById('frog-tongue');
+            const frogRect = document.getElementById('flies-frog').getBoundingClientRect();
+            const startX = frogRect.left + frogRect.width / 2;
+            const startY = frogRect.top + frogRect.height * 0.42; 
+            const length = Math.sqrt(Math.pow(flyX - startX, 2) + Math.pow(flyY - startY, 2));
+            const angle = Math.atan2(flyY - startY, flyX - startX) * 180 / Math.PI;
+
+            tongue.style.display = 'block'; tongue.style.left = startX + 'px'; tongue.style.top = startY + 'px';
+            tongue.style.width = '0px'; tongue.style.transform = `rotate(${angle}deg)`;
+
+            setTimeout(() => { tongue.style.width = length + 'px'; }, 10);
+            
+            setTimeout(() => {
+                flyElement.style.display = 'none'; tongue.style.width = '0px'; fliesCaught++;
+                if (fliesCaught >= fliesToCatch) { setTimeout(() => { fliesCurrentIdx++; renderFliesLevel(); }, 600); }
+            }, 200);
         }
     </script>
 </body>
